@@ -2,7 +2,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
-import Button from 'material-ui/Button';
 import FlexView from 'react-flexview';
 
 // local imports
