@@ -11,6 +11,7 @@ import Reboot from 'material-ui/Reboot';
 // local imports
 import App from 'containers/App';
 import reducers from 'reducers';
+import { AUTHENTICATED, UNAUTHENTICATED } from 'actions/types';
 
 // style imports
 import 'index.css';
@@ -34,6 +35,14 @@ const theme = createMuiTheme({
     }
   }
 });
+
+// check if refresh token in local storage
+const refreshToken = localStorage.getItem('refresh_token');
+if (refreshToken) {
+  store.dispatch({ type: AUTHENTICATED });
+} else {
+  store.dispatch({ type: UNAUTHENTICATED });
+}
 
 ReactDOM.render(
   <MuiThemeProvider theme={theme}>

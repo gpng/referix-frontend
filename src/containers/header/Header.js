@@ -7,97 +7,236 @@ import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
 import IconButton from 'material-ui/IconButton';
 import MenuIcon from 'material-ui-icons/Menu';
-import Modal from 'material-ui/Modal';
+import Hidden from 'material-ui/Hidden';
+import Menu, { MenuItem } from 'material-ui/Menu';
+import Dialog, {
+  DialogContent,
+  DialogTitle,
+  withMobileDialog
+} from 'material-ui/Dialog';
+import Close from 'material-ui-icons/Close';
 import FlexView from 'react-flexview';
 
 // local imports
 import * as actions from 'actions';
+import SignupForm from 'components/forms/SignupForm';
+import LoginForm from 'components/forms/LoginForm';
 
 // style imports
 const styles = {
   menuButton: {
-    marginLeft: -12,
-    marginRight: 20
+    marginRight: 8
   }
 };
-
-function getModalStyle() {
-  const top = 50;
-  const left = 50;
-
-  return {
-    position: 'absolute',
-    width: 8 * 50,
-    top: `${top}%`,
-    left: `${left}%`,
-    transform: `translate(-${top}%, -${left}%)`,
-    border: '1px solid #e5e5e5',
-    backgroundColor: '#fff',
-    boxShadow: '0 5px 15px rgba(0, 0, 0, .5)',
-    padding: 8 * 4
-  };
-}
 
 class Header extends Component {
   constructor() {
     super();
     this.state = {
-      modalOpen: false
+      dialogOpen: false,
+      anchorEl: null,
+      form: null
     };
   }
 
-  handleOpen = () => {
-    this.setState({ modalOpen: true });
+  handleDialogOpen = formName => {
+    this.setState({ dialogOpen: true, form: formName });
   };
 
-  handleClose = () => {
-    this.setState({ modalOpen: false });
+  handleDialogClose = () => {
+    this.setState({ dialogOpen: false });
+  };
+
+  handleMenuOpen = event => {
+    this.setState({ anchorEl: event.currentTarget });
+  };
+
+  handleMenuClose = () => {
+    this.setState({ anchorEl: null });
+  };
+
+  handleSubmit = async values => {
+    let res;
+    switch (this.state.form) {
+      case 'login':
+        res = await this.props.login(values);
+        break;
+      case 'signup':
+        res = await this.props.signup(values);
+        break;
+      default:
+        return;
+    }
+    if (res.success) {
+      this.handleDialogClose();
+    } else {
+      console.log('error', res.message);
+    }
+  };
+
+  handleLogout = () => {
+    this.props.logout();
+    this.handleDialogClose();
+  };
+
+  renderDialogTitle = () => {
+    switch (this.state.form) {
+      case 'login':
+        return 'Log In';
+      case 'signup':
+        return 'Registration';
+      default:
+        return null;
+    }
+  };
+
+  renderDialogContent = () => {
+    switch (this.state.form) {
+      case 'login':
+        return <LoginForm onSubmit={this.handleSubmit} />;
+      case 'signup':
+        return <SignupForm onSubmit={this.handleSubmit} />;
+      default:
+        return null;
+    }
+  };
+
+  renderHeaderToolbar = () => {
+    switch (this.props.authenticated) {
+      case true:
+        return (
+          <Button color="inherit" onClick={this.handleLogout}>
+            Logout
+          </Button>
+        );
+      case false:
+        return (
+          <FlexView>
+            <Button
+              color="inherit"
+              onClick={this.handleDialogOpen.bind(this, 'signup')}
+            >
+              Sign Up
+            </Button>
+            <Button
+              color="inherit"
+              onClick={this.handleDialogOpen.bind(this, 'login')}
+            >
+              Login
+            </Button>
+          </FlexView>
+        );
+      default:
+        return null;
+    }
+  };
+
+  renderHeaderMenu = () => {
+    switch (this.props.authenticated) {
+      case true:
+        return (
+          <MenuItem onClick={this.handleMenuClose && this.handleLogout}>
+            Logout
+          </MenuItem>
+        );
+      case false:
+        return (
+          <FlexView>
+            <MenuItem
+              onClick={
+                this.handleMenuClose &&
+                this.handleDialogOpen.bind(this, 'login')
+              }
+            >
+              Login
+            </MenuItem>
+            <MenuItem
+              onClick={
+                this.handleMenuClose &&
+                this.handleDialogOpen.bind(this, 'signup')
+              }
+            >
+              Sign Up
+            </MenuItem>
+          </FlexView>
+        );
+      default:
+        return null;
+    }
   };
 
   render() {
+    console.log(this.props.authenticated);
+    const { fullScreen } = this.props;
+    const { anchorEl } = this.state;
+    const openMenu = Boolean(anchorEl);
+
     return (
       <FlexView>
         <AppBar position="static">
           <Toolbar>
-            <IconButton
-              color="inherit"
-              aria-label="Menu"
-              style={styles.menuButton}
-            >
-              <MenuIcon />
-            </IconButton>
             <FlexView grow>
               <Typography type="title" color="inherit">
                 Referix
               </Typography>
             </FlexView>
-            <Button color="inherit" onClick={this.handleOpen}>
-              Signup
-            </Button>
-            <Button color="inherit" onClick={this.handleOpen}>
-              Login
-            </Button>
+            <Hidden xsDown>{this.renderHeaderToolbar()}</Hidden>
+            <Hidden smUp>
+              <IconButton
+                color="inherit"
+                aria-label="Menu"
+                style={styles.menuButton}
+                onClick={this.handleMenuOpen}
+              >
+                <MenuIcon />
+              </IconButton>
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorEl}
+                anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right'
+                }}
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right'
+                }}
+                open={openMenu}
+                onClick={this.handleMenuClose}
+              >
+                {this.renderHeaderMenu()}
+              </Menu>
+            </Hidden>
           </Toolbar>
         </AppBar>
-
-        <Modal
-          aria-labelledby="simple-modal-title"
-          aria-describedby="simple-modal-description"
-          open={this.state.modalOpen}
-          onClose={this.handleClose}
+        <Dialog
+          fullScreen={fullScreen}
+          open={this.state.dialogOpen}
+          onClose={this.handleDialogClose}
+          aria-labelledby="responsive-dialog-title"
         >
-          <FlexView style={getModalStyle()}>
-            <Typography type="title" id="modal-title">
-              Text in a modal
-            </Typography>
-            <Typography type="subheading" id="simple-modal-description">
-              Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-            </Typography>
-          </FlexView>
-        </Modal>
+          <DialogTitle style={{ minWidth: fullScreen ? 0 : 400 }}>
+            {this.renderDialogTitle()}
+            <Close
+              style={{
+                float: 'right',
+                cursor: 'pointer',
+                marginTop: '-10px',
+                marginRight: '-10px',
+                width: '20px'
+              }}
+              onClick={this.handleDialogClose}
+            />
+          </DialogTitle>
+          <DialogContent>{this.renderDialogContent()}</DialogContent>
+        </Dialog>
       </FlexView>
     );
   }
 }
 
-export default connect(null, actions)(Header);
+function mapStateToProps({ auth }) {
+  return { authenticated: auth.authenticated };
+}
+
+export default withMobileDialog()(connect(mapStateToProps, actions)(Header));
