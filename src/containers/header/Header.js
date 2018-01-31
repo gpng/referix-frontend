@@ -150,7 +150,7 @@ class Header extends Component {
         );
       case false:
         return (
-          <FlexView>
+          <FlexView column>
             <MenuItem
               onClick={
                 this.handleMenuClose &&

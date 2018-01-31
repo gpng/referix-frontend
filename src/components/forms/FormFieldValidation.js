@@ -32,8 +32,8 @@ export const renderField = ({
   required,
   meta: { touched, error, warning }
 }) => (
-  <FlexView style={{ marginBottom: 0 }}>
-    <FlexView>
+  <FlexView grow style={{ marginBottom: 0 }}>
+    <FlexView grow>
       <TextField
         {...input}
         required={required}
