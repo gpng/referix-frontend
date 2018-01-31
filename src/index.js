@@ -14,6 +14,7 @@ import reducers from 'reducers';
 import { AUTHENTICATED, UNAUTHENTICATED } from 'actions/types';
 
 // style imports
+import 'react-flexview/lib/flexView.css';
 import 'index.css';
 import 'styles/react-redux-toastr.min.css';
 

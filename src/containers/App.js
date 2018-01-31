@@ -8,16 +8,18 @@ import ReduxToastr from 'react-redux-toastr';
 // local imports
 import * as actions from 'actions';
 import Header from 'containers/header/Header';
+import Landing from 'containers/landing/Landing';
 
 // style imports
 
 class App extends Component {
   render() {
     return (
-      <FlexView>
+      <FlexView grow>
         <BrowserRouter>
-          <FlexView>
+          <FlexView grow column>
             <Route path="/" component={Header} />
+            <Route exact path="/" component={Landing} />
           </FlexView>
         </BrowserRouter>
         <ReduxToastr
