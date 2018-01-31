@@ -15,6 +15,7 @@ import { AUTHENTICATED, UNAUTHENTICATED } from 'actions/types';
 
 // style imports
 import 'index.css';
+import 'styles/react-redux-toastr.min.css';
 
 const store = createStore(reducers, {}, applyMiddleware(reduxThunk));
 

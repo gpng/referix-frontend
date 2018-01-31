@@ -16,6 +16,7 @@ import Dialog, {
 } from 'material-ui/Dialog';
 import Close from 'material-ui-icons/Close';
 import FlexView from 'react-flexview';
+import { toastr } from 'react-redux-toastr';
 
 // local imports
 import * as actions from 'actions';
@@ -69,8 +70,16 @@ class Header extends Component {
     }
     if (res.success) {
       this.handleDialogClose();
+      switch (this.state.form) {
+        case 'login':
+          return toastr.success('Login Successful', 'Welcome to Referix');
+        case 'signup':
+          return toastr.success('Signup Successful', 'Please log in');
+        default:
+          return null;
+      }
     } else {
-      console.log('error', res.message);
+      toastr.error('Authentication Failed', res.message);
     }
   };
 
@@ -166,7 +175,6 @@ class Header extends Component {
   };
 
   render() {
-    console.log(this.props.authenticated);
     const { fullScreen } = this.props;
     const { anchorEl } = this.state;
     const openMenu = Boolean(anchorEl);
