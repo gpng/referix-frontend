@@ -1,6 +1,7 @@
 // module imports
 import axios from 'axios';
 import to from 'await-to-js';
+import jwtDecode from 'jwt-decode';
 
 // local imports
 import { AUTHENTICATED, UNAUTHENTICATED } from 'actions/types';
@@ -34,8 +35,10 @@ export const login = formData => async dispatch => {
   }
   if (isSuccess(res.data)) {
     dispatch({ type: AUTHENTICATED });
+    const decoded = jwtDecode(res.data.access_token);
     localStorage.setItem('access_token', res.data.access_token);
     localStorage.setItem('refresh_token', res.data.refresh_token);
+    localStorage.setItem('user_id', decoded.user_id);
     return { success: true };
   } else {
     console.log(res.data);
