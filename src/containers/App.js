@@ -4,6 +4,7 @@ import { BrowserRouter, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import FlexView from 'react-flexview';
 import ReduxToastr from 'react-redux-toastr';
+import debounce from 'lodash.debounce';
 
 // local imports
 import * as actions from 'actions';
@@ -15,11 +16,17 @@ import Landing from 'containers/landing/Landing';
 class App extends Component {
   componentWillMount() {
     this.props.deviceWidthUpdated();
-    window.addEventListener('resize', this.props.deviceWidthUpdated);
+    window.addEventListener(
+      'resize',
+      debounce(this.props.deviceWidthUpdated, 200)
+    );
   }
 
   componentWillUnmount() {
-    window.removeEventListener('resize', this.props.deviceWidthUpdated);
+    window.removeEventListener(
+      'resize',
+      debounce(this.props.deviceWidthUpdated, 200)
+    );
   }
 
   render() {

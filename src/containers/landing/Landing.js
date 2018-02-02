@@ -64,7 +64,6 @@ class Landing extends Component {
   }
 
   render() {
-    console.log(this.props.isMobile);
     return (
       <FlexView column>
         {/* first section [START] */}
