@@ -13,6 +13,15 @@ import Landing from 'containers/landing/Landing';
 // style imports
 
 class App extends Component {
+  componentWillMount() {
+    this.props.deviceWidthUpdated();
+    window.addEventListener('resize', this.props.deviceWidthUpdated);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.props.deviceWidthUpdated);
+  }
+
   render() {
     return (
       <FlexView grow>
