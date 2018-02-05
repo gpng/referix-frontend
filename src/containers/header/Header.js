@@ -66,7 +66,7 @@ class Header extends Component {
         res = await this.props.signup(values);
         break;
       default:
-        return;
+        return { success: false };
     }
     if (res.success) {
       this.handleDialogClose();
@@ -188,6 +188,9 @@ class Header extends Component {
                 Referix
               </Typography>
             </FlexView>
+            <Button color="inherit" onClick={this.props.getOneUser}>
+              test
+            </Button>
             <Hidden xsDown>{this.renderHeaderToolbar()}</Hidden>
             <Hidden smUp>
               <IconButton

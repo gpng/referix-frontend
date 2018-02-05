@@ -10,7 +10,6 @@ const breakpoints = {
 };
 
 export const deviceWidthUpdated = () => (dispatch, getState) => {
-  console.log(window.innerWidth);
   let isMobile = false;
   if (window.innerWidth < breakpoints.sm) {
     isMobile = true;

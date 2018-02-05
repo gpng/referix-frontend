@@ -12,13 +12,14 @@ import Reboot from 'material-ui/Reboot';
 import App from 'containers/App';
 import reducers from 'reducers';
 import { AUTHENTICATED, UNAUTHENTICATED } from 'actions/types';
+import { jwt } from 'actions/middlewares';
 
 // style imports
 import 'react-flexview/lib/flexView.css';
 import 'index.css';
 import 'styles/react-redux-toastr.min.css';
 
-const store = createStore(reducers, {}, applyMiddleware(reduxThunk));
+const store = createStore(reducers, {}, applyMiddleware(jwt, reduxThunk));
 
 // palette taken from material.io/color
 const theme = createMuiTheme({
