@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { Switch, Redirect } from 'react-router';
 import FlexView from 'react-flexview';
 import ReduxToastr from 'react-redux-toastr';
 import debounce from 'lodash.debounce';
@@ -14,20 +15,27 @@ import Landing from 'containers/landing/Landing';
 // style imports
 
 class App extends Component {
-  componentWillMount() {
+  componentWillMount = () => {
     this.props.deviceWidthUpdated();
     window.addEventListener(
       'resize',
       debounce(this.props.deviceWidthUpdated, 200)
     );
-  }
+  };
 
-  componentWillUnmount() {
+  componentWillUnmount = () => {
     window.removeEventListener(
       'resize',
       debounce(this.props.deviceWidthUpdated, 200)
     );
-  }
+  };
+
+  handleRedirect = () => {
+    console.log(this.props.authenticated);
+    if (!this.props.authenticated) {
+      return <Redirect from="*" to="/" />;
+    }
+  };
 
   render() {
     return (
@@ -35,7 +43,10 @@ class App extends Component {
         <BrowserRouter>
           <FlexView grow column>
             <Route path="/" component={Header} />
-            <Route exact path="/" component={Landing} />
+            <Switch>
+              <Route exact path="/" component={Landing} />
+              {this.handleRedirect()}
+            </Switch>
           </FlexView>
         </BrowserRouter>
         <ReduxToastr
@@ -52,4 +63,8 @@ class App extends Component {
   }
 }
 
-export default connect(null, actions)(App);
+const mapStateToProps = ({ auth }) => {
+  return { authenticated: auth.authenticated };
+};
+
+export default connect(mapStateToProps, actions)(App);
