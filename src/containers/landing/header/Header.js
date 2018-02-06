@@ -17,6 +17,7 @@ import Dialog, {
 import Close from 'material-ui-icons/Close';
 import FlexView from 'react-flexview';
 import { toastr } from 'react-redux-toastr';
+import { Link } from 'react-router-dom';
 
 // local imports
 import * as actions from 'actions';
@@ -66,12 +67,13 @@ class Header extends Component {
         res = await this.props.signup(values);
         break;
       default:
-        return;
+        return { success: false };
     }
     if (res.success) {
       this.handleDialogClose();
       switch (this.state.form) {
         case 'login':
+          this.props.history.push('/dashboard');
           return toastr.success('Login Successful', 'Welcome to Referix');
         case 'signup':
           return toastr.success('Signup Successful', 'Please log in');
@@ -113,11 +115,22 @@ class Header extends Component {
   renderHeaderToolbar = () => {
     switch (this.props.authenticated) {
       case true:
-        return (
-          <Button color="inherit" onClick={this.handleLogout}>
+        return [
+          <Link
+            to="/dashboard"
+            style={{ textDecoration: 'none', color: 'white' }}
+            key="toolbar-dashboard"
+          >
+            <Button color="inherit">Dashboard</Button>
+          </Link>,
+          <Button
+            color="inherit"
+            onClick={this.handleLogout}
+            key="toolbar-logout"
+          >
             Logout
           </Button>
-        );
+        ];
       case false:
         return (
           <FlexView>
@@ -144,9 +157,18 @@ class Header extends Component {
     switch (this.props.authenticated) {
       case true:
         return (
-          <MenuItem onClick={this.handleMenuClose && this.handleLogout}>
-            Logout
-          </MenuItem>
+          <FlexView column>
+            <Link
+              to="/dashboard"
+              style={{ textDecoration: 'none', color: 'white' }}
+              key="toolbar-dashboard"
+            >
+              <MenuItem>Dashboard</MenuItem>
+            </Link>
+            <MenuItem onClick={this.handleMenuClose && this.handleLogout}>
+              Logout
+            </MenuItem>
+          </FlexView>
         );
       case false:
         return (

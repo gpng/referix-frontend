@@ -6,19 +6,32 @@ import { createStore, applyMiddleware } from 'redux';
 import reduxThunk from 'redux-thunk';
 import registerServiceWorker from 'registerServiceWorker';
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
+import { ConnectedRouter, routerMiddleware } from 'react-router-redux';
+import createHistory from 'history/createBrowserHistory';
 import Reboot from 'material-ui/Reboot';
 
 // local imports
 import App from 'containers/App';
 import reducers from 'reducers';
 import { AUTHENTICATED, UNAUTHENTICATED } from 'actions/types';
+import { jwt } from 'actions/middlewares';
 
 // style imports
 import 'react-flexview/lib/flexView.css';
 import 'index.css';
-import 'styles/react-redux-toastr.min.css';
+import 'assets/styles/react-redux-toastr.min.css';
 
-const store = createStore(reducers, {}, applyMiddleware(reduxThunk));
+// create browser history
+const history = createHistory();
+
+// build middleware for intercepting and dispatching navigation actions
+const navMiddleware = routerMiddleware(history);
+
+const store = createStore(
+  reducers,
+  {},
+  applyMiddleware(jwt, reduxThunk, navMiddleware)
+);
 
 // palette taken from material.io/color
 const theme = createMuiTheme({
@@ -50,7 +63,9 @@ ReactDOM.render(
   <MuiThemeProvider theme={theme}>
     <Reboot />
     <Provider store={store}>
-      <App />
+      <ConnectedRouter history={history}>
+        <App />
+      </ConnectedRouter>
     </Provider>
   </MuiThemeProvider>,
   document.querySelector('#root')

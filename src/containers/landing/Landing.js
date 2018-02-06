@@ -43,7 +43,7 @@ const styles = {
     backgroundColor: 'inherit',
     marginBottom: 16
   },
-  section2_stepText: { marginTop: 12, width: '80%' },
+  section2_stepText: { marginTop: 12, width: '80%', marginBottom: 12 },
   section3_root: {
     backgroundColor: 'white',
     paddingLeft: 72,
@@ -90,8 +90,8 @@ class Landing extends Component {
           <Typography type="display1" color="primary" align="center">
             It's Easy to Get Started
           </Typography>
-          <FlexView style={{ marginTop: 24 }}>
-            <FlexView column basis="33%">
+          <FlexView column={this.props.isMobile} style={{ marginTop: 24 }}>
+            <FlexView column basis={this.props.isMobile ? 0 : '33%'}>
               <Avatar style={styles.section2_numberAvatar}>
                 <Typography type="title" color="primary">
                   1
@@ -103,7 +103,7 @@ class Landing extends Component {
                 here every step of the way to guide you
               </Typography>
             </FlexView>
-            <FlexView column basis="33%">
+            <FlexView column basis={this.props.isMobile ? 0 : '33%'}>
               <Avatar style={styles.section2_numberAvatar}>
                 <Typography type="title" color="primary">
                   2
@@ -115,7 +115,7 @@ class Landing extends Component {
                 to submit necessary documents
               </Typography>
             </FlexView>
-            <FlexView column basis="33%">
+            <FlexView column basis={this.props.isMobile ? 0 : '33%'}>
               <Avatar style={styles.section2_numberAvatar}>
                 <Typography type="title" color="primary">
                   3
@@ -135,8 +135,12 @@ class Landing extends Component {
           <Typography type="display1" color="primary" align="center">
             Why Recruit With Us?
           </Typography>
-          <FlexView style={{ marginTop: 24 }}>
-            <FlexView column basis="33%" hAlignContent="center">
+          <FlexView column={this.props.isMobile} style={{ marginTop: 24 }}>
+            <FlexView
+              column
+              basis={this.props.isMobile ? 0 : '33%'}
+              hAlignContent="center"
+            >
               <ShowChart style={styles.section3_icons} />
               <Typography type="title" color="primary" align="center">
                 EARN MORE
@@ -145,7 +149,11 @@ class Landing extends Component {
                 Boost your income today with our platform
               </Typography>
             </FlexView>
-            <FlexView column basis="33%" hAlignContent="center">
+            <FlexView
+              column
+              basis={this.props.isMobile ? 0 : '33%'}
+              hAlignContent="center"
+            >
               <AccessTime style={styles.section3_icons} />
               <Typography type="title" color="primary" align="center">
                 24/7 RECRUITING
@@ -154,7 +162,11 @@ class Landing extends Component {
                 Recruit whenever it best suits your needs
               </Typography>
             </FlexView>
-            <FlexView column basis="33%" hAlignContent="center">
+            <FlexView
+              column
+              basis={this.props.isMobile ? 0 : '33%'}
+              hAlignContent="center"
+            >
               <People style={styles.section3_icons} />
               <Typography type="title" color="primary" align="center">
                 EXPAND YOUR NETWORK
@@ -171,8 +183,7 @@ class Landing extends Component {
   }
 }
 
-function mapStateToProps({ auth }) {
-  return { authenticated: auth.authenticated };
+function mapStateToProps({ responsive }) {
+  return { isMobile: responsive.isMobile };
 }
-
 export default connect(mapStateToProps, actions)(Landing);
