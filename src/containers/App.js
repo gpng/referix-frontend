@@ -9,8 +9,9 @@ import debounce from 'lodash.debounce';
 
 // local imports
 import * as actions from 'actions';
-import Header from 'containers/header/Header';
+import Header from 'containers/landing/header/Header';
 import Landing from 'containers/landing/Landing';
+import DashboardRoot from 'containers/dashboard/DashboardRoot';
 
 // style imports
 
@@ -31,7 +32,6 @@ class App extends Component {
   };
 
   handleRedirect = () => {
-    console.log(this.props.authenticated);
     if (!this.props.authenticated) {
       return <Redirect from="*" to="/" />;
     }
@@ -42,7 +42,8 @@ class App extends Component {
       <FlexView grow>
         <BrowserRouter>
           <FlexView grow column>
-            <Route path="/" component={Header} />
+            <Route exact path="/" component={Header} />
+            <Route path="/dashboard" component={DashboardRoot} />
             <Switch>
               <Route exact path="/" component={Landing} />
               {this.handleRedirect()}

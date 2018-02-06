@@ -8,7 +8,8 @@ import {
   AUTHENTICATED,
   UNAUTHENTICATED,
   REFRESHING_TOKEN,
-  DONE_REFRESHING_TOKEN
+  DONE_REFRESHING_TOKEN,
+  GET_CURRENT_USER
 } from 'actions/types';
 import { isSuccess } from 'actions/utilities';
 
@@ -76,7 +77,7 @@ export const logout = () => async dispatch => {
   }
 };
 
-export const getOneUser = () => async dispatch => {
+export const getCurrentUser = () => async dispatch => {
   let err, res;
   [err, res] = await to(
     axios.get('/users/' + localStorage.getItem('user_id'), {
@@ -92,7 +93,7 @@ export const getOneUser = () => async dispatch => {
     };
   }
   if (isSuccess(res.data)) {
-    console.log(res.data);
+    dispatch({ type: GET_CURRENT_USER, user: res.data.data[0] });
     return { success: true };
   } else {
     return { success: false, message: res.data.error.text };

@@ -19,7 +19,7 @@ import { jwt } from 'actions/middlewares';
 // style imports
 import 'react-flexview/lib/flexView.css';
 import 'index.css';
-import 'styles/react-redux-toastr.min.css';
+import 'assets/styles/react-redux-toastr.min.css';
 
 // create browser history
 const history = createHistory();

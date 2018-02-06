@@ -3,7 +3,8 @@ import {
   UNAUTHENTICATED,
   AUTHENTICATION_ERROR,
   REFRESHING_TOKEN,
-  DONE_REFRESHING_TOKEN
+  DONE_REFRESHING_TOKEN,
+  GET_CURRENT_USER
 } from 'actions/types';
 
 export default function(state = { freshTokenPromise: null }, action) {
@@ -18,6 +19,8 @@ export default function(state = { freshTokenPromise: null }, action) {
       return { ...state, freshTokenPromise: action.freshTokenPromise };
     case DONE_REFRESHING_TOKEN:
       return { ...state, freshTokenPromise: null };
+    case GET_CURRENT_USER:
+      return { ...state, user: action.user };
     default:
       return state;
   }
