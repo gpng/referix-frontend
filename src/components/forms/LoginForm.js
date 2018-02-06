@@ -21,6 +21,8 @@ const styles = {
 let LoginForm = props => {
   const { handleSubmit, submitting } = props;
 
+/* First Required-> Material UI Text validation */
+/* Second Required -> */
   return (
     <form id="signupform" className="form-horizontal" onSubmit={handleSubmit}>
       <Field
