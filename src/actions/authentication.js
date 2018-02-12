@@ -105,7 +105,7 @@ export const getCurrentUser = () => async dispatch => {
 const getAccessToken = async () => {
   let err, res;
   [err, res] = await to(
-    axios.post('oauth/token', {
+    axios.post('/oauth/token', {
       grant_type: 'refresh_token',
       refresh_token: localStorage.getItem('refresh_token')
     })
