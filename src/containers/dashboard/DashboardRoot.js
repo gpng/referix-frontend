@@ -28,8 +28,7 @@ const styles = theme => ({
     [theme.breakpoints.up('md')]: {
       marginLeft: drawerWidth,
       width: `calc(100% - ${drawerWidth}px)`
-    },
-    zIndex: 1301
+    }
   }
 });
 

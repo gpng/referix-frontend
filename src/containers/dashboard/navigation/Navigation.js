@@ -34,10 +34,7 @@ const styles = theme => ({
   drawerPaper: {
     backgroundColor: '#fafafafa',
     width: drawerWidth,
-    height: '100%',
-    [theme.breakpoints.up('md')]: {
-      zIndex: '1400'
-    }
+    height: '100%'
   },
   drawerHeader: {
     width: drawerWidth,
@@ -45,10 +42,7 @@ const styles = theme => ({
   },
   drawerRoot: { opacity: 0 },
   drawerModal: {
-    zIndex: 1400,
-    [theme.breakpoints.up('md')]: {
-      zIndex: 1300
-    }
+    width: drawerWidth
   },
   navIconHide: {
     [theme.breakpoints.up('md')]: {
@@ -107,6 +101,7 @@ class Navigation extends Component {
     if (!this.props.user) {
       await this.props.getCurrentUser();
     }
+    console.log(this.props.user);
     this.setState({ firstName: this.props.user.first_name });
   };
 
@@ -159,7 +154,7 @@ class Navigation extends Component {
     );
 
     return (
-      <FlexView style={{ zIndex: 100 }}>
+      <FlexView>
         <AppBar position="static" className={classes.appBar}>
           <Toolbar>
             <IconButton
@@ -184,8 +179,7 @@ class Navigation extends Component {
             anchor="left"
             open={this.state.mobileOpen}
             classes={{
-              paper: classes.drawerPaper,
-              modal: classes.drawerModal
+              paper: classes.drawerPaper
             }}
             onClose={this.handleDrawerToggle}
             ModalProps={{
@@ -200,7 +194,11 @@ class Navigation extends Component {
             variant="permanent"
             open
             hideBackdrop
-            classes={{ paper: classes.drawerPaper }}
+            disableEnforceFocus
+            classes={{
+              paper: classes.drawerPaper,
+              modal: classes.drawerModal
+            }}
           >
             {drawer}
           </Drawer>
