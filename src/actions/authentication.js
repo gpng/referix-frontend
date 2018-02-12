@@ -2,6 +2,7 @@
 import axios from 'axios';
 import to from 'await-to-js';
 import jwtDecode from 'jwt-decode';
+import { push } from 'react-router-redux';
 
 // local imports
 import {
@@ -15,7 +16,7 @@ import { isSuccess } from 'actions/utilities';
 
 export const signup = formData => async dispatch => {
   let err, res;
-  [err, res] = await to(axios.post('/users', formData));
+  [err, res] = await to(axios.post('/user', formData));
   if (err) {
     return {
       success: false,
@@ -71,6 +72,7 @@ export const logout = () => async dispatch => {
   if (isSuccess(res.data)) {
     dispatch({ type: UNAUTHENTICATED });
     localStorage.clear();
+    dispatch(push('/'));
     return { success: true };
   } else {
     return { success: false, message: res.data.error.text };
@@ -80,7 +82,7 @@ export const logout = () => async dispatch => {
 export const getCurrentUser = () => async dispatch => {
   let err, res;
   [err, res] = await to(
-    axios.get('/users/' + localStorage.getItem('user_id'), {
+    axios.get('/user/' + localStorage.getItem('user_id'), {
       headers: {
         token: localStorage.getItem('access_token')
       }
