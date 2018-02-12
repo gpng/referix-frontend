@@ -13,6 +13,12 @@ export default {
       title: 'Dashboard'
     },
     {
+      label: 'User Management',
+      icon: 'AccountCircle',
+      path: '/dashboard/usermanagement',
+      title: 'User Management'
+    },
+    {
       label: 'Profile',
       icon: 'AccountCircle',
       path: '/dashboard/profile',
