@@ -20,7 +20,7 @@ export const jwt = ({ dispatch, getState }) => {
             await refreshToken(dispatch);
             return next(action);
           } else {
-            await getState().auth.freshTokenPromise;
+            await getState().auth.freshTokenPromise();
             return next(action);
           }
         } else {

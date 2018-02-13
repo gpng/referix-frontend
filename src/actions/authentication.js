@@ -2,6 +2,8 @@
 import axios from 'axios';
 import to from 'await-to-js';
 import jwtDecode from 'jwt-decode';
+import { push } from 'react-router-redux';
+import sysParams from 'sys_params';
 
 // local imports
 import {
@@ -13,9 +15,25 @@ import {
 } from 'actions/types';
 import { isSuccess } from 'actions/utilities';
 
-export const signup = formData => async dispatch => {
-  let err, res;
-  [err, res] = await to(axios.post('/users', formData));
+export const signup = (formData, role) => async dispatch => {
+  let err, res, url;
+  let config = {};
+  switch (role) {
+    case sysParams.roles.admin:
+      url = '/user/admin';
+      config = {
+        headers: {
+          token: localStorage.getItem('access_token')
+        }
+      };
+      break;
+    case sysParams.roles.company:
+      url = '/user/company';
+      break;
+    default:
+      return { success: false, message: 'No role defined' };
+  }
+  [err, res] = await to(axios.post(url, formData, config));
   if (err) {
     return {
       success: false,
@@ -54,33 +72,24 @@ export const login = formData => async dispatch => {
 };
 
 export const logout = () => async dispatch => {
-  let err, res;
-  [err, res] = await to(
-    axios.delete('/token/reject', {
-      data: {
-        refresh_token: localStorage.getItem('refresh_token')
-      }
-    })
-  );
-  if (err) {
-    return {
-      success: false,
-      message: err.response.data.error_description
-    };
-  }
-  if (isSuccess(res.data)) {
-    dispatch({ type: UNAUTHENTICATED });
-    localStorage.clear();
-    return { success: true };
-  } else {
-    return { success: false, message: res.data.error.text };
-  }
+  // call reject token async but don't wait for response
+  await axios.delete('/token/reject', {
+    data: {
+      refresh_token: localStorage.getItem('refresh_token')
+    }
+  });
+
+  // clear localstorage and logout no matter if call is successful
+  dispatch({ type: UNAUTHENTICATED });
+  localStorage.clear();
+  dispatch(push('/'));
+  return { success: true };
 };
 
 export const getCurrentUser = () => async dispatch => {
   let err, res;
   [err, res] = await to(
-    axios.get('/users/' + localStorage.getItem('user_id'), {
+    axios.get('/user/' + localStorage.getItem('user_id'), {
       headers: {
         token: localStorage.getItem('access_token')
       }
@@ -103,7 +112,7 @@ export const getCurrentUser = () => async dispatch => {
 const getAccessToken = async () => {
   let err, res;
   [err, res] = await to(
-    axios.post('oauth/token', {
+    axios.post('/oauth/token', {
       grant_type: 'refresh_token',
       refresh_token: localStorage.getItem('refresh_token')
     })

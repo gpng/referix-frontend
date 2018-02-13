@@ -1,4 +1,5 @@
 import sysParams from 'sys_params';
+import jwtDecode from 'jwt-decode';
 
 export const isSuccess = res => {
   if (res.error) {
@@ -15,4 +16,18 @@ export const getTitle = path => {
     return res[0].title;
   }
   return 'Untitled';
+};
+
+// get user from access token
+export const getUserFromAccessToken = () => {
+  const accessToken = localStorage.getItem('access_token');
+  if (accessToken) {
+    return jwtDecode(accessToken);
+  }
+  return {};
+};
+
+// validate roles against access permissions
+export const validateAccess = permissions => {
+  return getUserFromAccessToken().role_id & permissions;
 };

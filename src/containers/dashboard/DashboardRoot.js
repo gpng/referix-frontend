@@ -3,13 +3,15 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import FlexView from 'react-flexview';
 import { withStyles } from 'material-ui/styles';
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 
 // local imports
 import Navigation from 'containers/dashboard/navigation/Navigation';
 import Dashboard from 'containers/dashboard/dashboard/Dashboard';
 import Profile from 'containers/dashboard/profile/Profile';
+import UserManagement from 'containers/dashboard/user/UserManagement';
 import sysParams from 'sys_params';
+import restrictedRoute from 'components/hoc/restrictedRoute';
 import * as actions from 'actions';
 
 // style imports
@@ -27,8 +29,7 @@ const styles = theme => ({
     [theme.breakpoints.up('md')]: {
       marginLeft: drawerWidth,
       width: `calc(100% - ${drawerWidth}px)`
-    },
-    zIndex: 1301
+    }
   }
 });
 
@@ -40,13 +41,28 @@ class DashboardRoot extends Component {
 
   render() {
     const { classes } = this.props;
+    const roles = sysParams.roles;
 
     return (
       <FlexView column grow>
         <Navigation />
         <FlexView grow className={classes.content}>
-          <Route exact path="/dashboard" component={Dashboard} />
-          <Route exact path="/dashboard/profile" component={Profile} />
+          <Switch>
+            <Route exact path="/dashboard" component={Dashboard} />
+            <Route
+              exact
+              path="/dashboard/usermanagement"
+              component={restrictedRoute(UserManagement, roles.admin)}
+            />
+            <Route
+              exact
+              path="/dashboard/profile"
+              component={restrictedRoute(
+                Profile,
+                roles.recruiter + roles.company
+              )}
+            />
+          </Switch>
         </FlexView>
       </FlexView>
     );

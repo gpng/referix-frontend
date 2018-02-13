@@ -12,7 +12,7 @@ export default function(state = { freshTokenPromise: null }, action) {
     case AUTHENTICATED:
       return { ...state, authenticated: true };
     case UNAUTHENTICATED:
-      return { ...state, authenticated: false };
+      return { ...state, authenticated: false, user: null };
     case AUTHENTICATION_ERROR:
       return { ...state, error: action.payload };
     case REFRESHING_TOKEN:

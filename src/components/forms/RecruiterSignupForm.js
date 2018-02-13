@@ -18,11 +18,15 @@ const styles = {
   }
 };
 
-let SignupForm = props => {
+let RecruiterSignupForm = props => {
   const { handleSubmit, submitting } = props;
 
   return (
-    <form id="signupform" className="form-horizontal" onSubmit={handleSubmit}>
+    <form
+      id="reruiter-signup-form"
+      className="form-horizontal"
+      onSubmit={handleSubmit}
+    >
       <Field
         required
         icon="glyphicon glyphicon-user"
@@ -79,15 +83,15 @@ let SignupForm = props => {
         onClick={this.handleSubmit}
         disabled={submitting}
       >
-        Signup
+        Register Recruiter
       </Button>
     </form>
   );
 };
 
-SignupForm = reduxForm({
+RecruiterSignupForm = reduxForm({
   // a unique name for the form
-  form: 'signup'
-})(SignupForm);
+  form: 'recruiter-signup'
+})(RecruiterSignupForm);
 
-export default SignupForm;
+export default RecruiterSignupForm;
