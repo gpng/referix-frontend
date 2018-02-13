@@ -11,6 +11,7 @@ import debounce from 'lodash.debounce';
 import * as actions from 'actions';
 import Header from 'containers/landing/header/Header';
 import Landing from 'containers/landing/Landing';
+import Footer from 'containers/landing/Footer';
 import DashboardRoot from 'containers/dashboard/DashboardRoot';
 
 // style imports
@@ -44,8 +45,10 @@ class App extends Component {
           <FlexView grow column>
             <Route exact path="/" component={Header} />
             <Route path="/dashboard" component={DashboardRoot} />
+            <Route exact path="/footer" component={Footer} />
             <Switch>
               <Route exact path="/" component={Landing} />
+
               {this.handleRedirect()}
             </Switch>
           </FlexView>
