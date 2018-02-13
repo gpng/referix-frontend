@@ -20,7 +20,7 @@ import { withRouter } from 'react-router-dom';
 import * as actions from 'actions';
 import MaterialIcon from 'components/icons/MaterialIcon';
 import sysParams from 'sys_params';
-import { getTitle } from 'actions/utilities';
+import { getTitle, validateAccess } from 'actions/utilities';
 
 // style imports
 
@@ -98,11 +98,14 @@ class Navigation extends Component {
   };
 
   componentWillMount = async () => {
-    if (!this.props.user) {
-      await this.props.getCurrentUser();
+    if (validateAccess(sysParams.roles.recruiter + sysParams.roles.company)) {
+      if (!this.props.user) {
+        await this.props.getCurrentUser();
+      }
+      this.setState({ firstName: this.props.user.first_name });
+    } else if (validateAccess(sysParams.roles.admin)) {
+      this.setState({ firstName: 'Admin' });
     }
-    console.log(this.props.user);
-    this.setState({ firstName: this.props.user.first_name });
   };
 
   render() {
@@ -112,16 +115,18 @@ class Navigation extends Component {
       const routes = sysParams.routes;
       const renderList = [];
       for (let i = 0; i < routes.length; i++) {
-        renderList.push(
-          <Link to={routes[i].path} key={i} className={classes.drawerLink}>
-            <ListItem button onClick={this.handleDrawerToggle}>
-              <ListItemIcon>
-                <MaterialIcon icon={routes[i].icon} />
-              </ListItemIcon>
-              <ListItemText primary={routes[i].label} />
-            </ListItem>
-          </Link>
-        );
+        if (validateAccess(routes[i].access)) {
+          renderList.push(
+            <Link to={routes[i].path} key={i} className={classes.drawerLink}>
+              <ListItem button onClick={this.handleDrawerToggle}>
+                <ListItemIcon>
+                  <MaterialIcon icon={routes[i].icon} />
+                </ListItemIcon>
+                <ListItemText primary={routes[i].label} />
+              </ListItem>
+            </Link>
+          );
+        }
       }
       return renderList;
     };

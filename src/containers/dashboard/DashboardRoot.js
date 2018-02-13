@@ -11,6 +11,7 @@ import Dashboard from 'containers/dashboard/dashboard/Dashboard';
 import Profile from 'containers/dashboard/profile/Profile';
 import UserManagement from 'containers/dashboard/user/UserManagement';
 import sysParams from 'sys_params';
+import restrictedRoute from 'components/hoc/restrictedRoute';
 import * as actions from 'actions';
 
 // style imports
@@ -40,6 +41,7 @@ class DashboardRoot extends Component {
 
   render() {
     const { classes } = this.props;
+    const roles = sysParams.roles;
 
     return (
       <FlexView column grow>
@@ -50,9 +52,16 @@ class DashboardRoot extends Component {
             <Route
               exact
               path="/dashboard/usermanagement"
-              component={UserManagement}
+              component={restrictedRoute(UserManagement, roles.admin)}
             />
-            <Route exact path="/dashboard/profile" component={Profile} />
+            <Route
+              exact
+              path="/dashboard/profile"
+              component={restrictedRoute(
+                Profile,
+                roles.recruiter + roles.company
+              )}
+            />
           </Switch>
         </FlexView>
       </FlexView>

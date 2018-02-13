@@ -55,28 +55,18 @@ export const login = formData => async dispatch => {
 };
 
 export const logout = () => async dispatch => {
-  let err, res;
-  [err, res] = await to(
-    axios.delete('/token/reject', {
-      data: {
-        refresh_token: localStorage.getItem('refresh_token')
-      }
-    })
-  );
-  if (err) {
-    return {
-      success: false,
-      message: err.response.data.error_description
-    };
-  }
-  if (isSuccess(res.data)) {
-    dispatch({ type: UNAUTHENTICATED });
-    localStorage.clear();
-    dispatch(push('/'));
-    return { success: true };
-  } else {
-    return { success: false, message: res.data.error.text };
-  }
+  // call reject token async but don't wait for response
+  await axios.delete('/token/reject', {
+    data: {
+      refresh_token: localStorage.getItem('refresh_token')
+    }
+  });
+
+  // clear localstorage and logout no matter if call is successful
+  dispatch({ type: UNAUTHENTICATED });
+  localStorage.clear();
+  dispatch(push('/'));
+  return { success: true };
 };
 
 export const getCurrentUser = () => async dispatch => {
