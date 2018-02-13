@@ -21,7 +21,8 @@ import { Link } from 'react-router-dom';
 
 // local imports
 import * as actions from 'actions';
-import SignupForm from 'components/forms/SignupForm';
+import sysParams from 'sys_params';
+import CompanySignupForm from 'components/forms/CompanySignupForm';
 import LoginForm from 'components/forms/LoginForm';
 
 // style imports
@@ -64,7 +65,7 @@ class Header extends Component {
         res = await this.props.login(values);
         break;
       case 'signup':
-        res = await this.props.signup(values);
+        res = await this.props.signup(values, sysParams.roles.company);
         break;
       default:
         return { success: false };
@@ -106,7 +107,7 @@ class Header extends Component {
       case 'login':
         return <LoginForm onSubmit={this.handleSubmit} />;
       case 'signup':
-        return <SignupForm onSubmit={this.handleSubmit} />;
+        return <CompanySignupForm onSubmit={this.handleSubmit} />;
       default:
         return null;
     }

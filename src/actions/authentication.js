@@ -3,6 +3,7 @@ import axios from 'axios';
 import to from 'await-to-js';
 import jwtDecode from 'jwt-decode';
 import { push } from 'react-router-redux';
+import sysParams from 'sys_params';
 
 // local imports
 import {
@@ -14,9 +15,25 @@ import {
 } from 'actions/types';
 import { isSuccess } from 'actions/utilities';
 
-export const signup = formData => async dispatch => {
-  let err, res;
-  [err, res] = await to(axios.post('/user', formData));
+export const signup = (formData, role) => async dispatch => {
+  let err, res, url;
+  let config = {};
+  switch (role) {
+    case sysParams.roles.admin:
+      url = '/user/admin';
+      config = {
+        headers: {
+          token: localStorage.getItem('access_token')
+        }
+      };
+      break;
+    case sysParams.roles.company:
+      url = '/user/company';
+      break;
+    default:
+      return { success: false, message: 'No role defined' };
+  }
+  [err, res] = await to(axios.post(url, formData, config));
   if (err) {
     return {
       success: false,
