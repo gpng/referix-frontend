@@ -1,0 +1,138 @@
+// module imports
+import React from 'react';
+import FlexView from 'react-flexview';
+import { withStyles } from 'material-ui/styles';
+import Drawer from 'material-ui/Drawer';
+import Hidden from 'material-ui/Hidden';
+import List, { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
+import { Link } from 'react-router-dom';
+import Typography from 'material-ui/Typography';
+import Divider from 'material-ui/Divider';
+
+// local imports
+import MaterialIcon from 'components/icons/MaterialIcon';
+import sysParams from 'sys_params';
+
+// style imports
+
+const drawerWidth = sysParams.constants.drawerWidth;
+const appBarHeight = sysParams.constants.appBarHeight;
+
+const styles = theme => ({
+  drawerPaper: {
+    backgroundColor: '#fafafafa',
+    width: drawerWidth,
+    height: '100%'
+  },
+  drawerHeader: {
+    width: drawerWidth,
+    height: appBarHeight
+  },
+  drawerRoot: { opacity: 0 },
+  drawerModal: {
+    width: drawerWidth
+  },
+  drawerLink: {
+    textDecoration: 'none',
+    color: 'black'
+  }
+});
+
+/**
+ *
+ * @param {function} onSubmitLogout
+ * @param {function} onDrawerToggle
+ * @param {array} navItems Array of items to be shown in drawer
+ * @param {boolean} mobileOpen
+ */
+let NavigationDrawer = props => {
+  const {
+    classes,
+    onSubmitLogout,
+    onDrawerToggle,
+    navItems,
+    mobileOpen
+  } = props;
+
+  const renderNavItems = () => {
+    let renderList = [];
+    const routes = navItems;
+    for (var i = 0; i < routes.length; i++) {
+      renderList.push(
+        <Link to={routes[i].path} key={i} className={classes.drawerLink}>
+          <ListItem button onClick={onDrawerToggle}>
+            <ListItemIcon>
+              <MaterialIcon icon={routes[i].icon} />
+            </ListItemIcon>
+            <ListItemText primary={routes[i].label} />
+          </ListItem>
+        </Link>
+      );
+    }
+    return renderList;
+  };
+
+  const drawer = (
+    <FlexView column>
+      <FlexView
+        className={classes.drawerHeader}
+        vAlignContent="center"
+        hAlignContent="center"
+      >
+        <Link to="/" className={classes.drawerLink}>
+          <Typography type="title" color="inherit">
+            REFERIX
+          </Typography>
+        </Link>
+      </FlexView>
+      <Divider />
+      <List>{renderNavItems()}</List>
+      <Divider />
+      <List>
+        <ListItem button onClick={onSubmitLogout}>
+          <ListItemIcon>
+            <MaterialIcon icon="ExitToApp" />
+          </ListItemIcon>
+          <ListItemText primary="Logout" />
+        </ListItem>
+      </List>
+    </FlexView>
+  );
+
+  return (
+    <FlexView>
+      <Hidden mdUp>
+        <Drawer
+          variant="temporary"
+          anchor="left"
+          open={mobileOpen}
+          classes={{
+            paper: classes.drawerPaper
+          }}
+          onClose={onDrawerToggle}
+          ModalProps={{
+            keepMounted: true // Better open performance on mobile.
+          }}
+        >
+          {drawer}
+        </Drawer>
+      </Hidden>
+      <Hidden smDown>
+        <Drawer
+          variant="permanent"
+          open
+          hideBackdrop
+          disableEnforceFocus
+          classes={{
+            paper: classes.drawerPaper,
+            modal: classes.drawerModal
+          }}
+        >
+          {drawer}
+        </Drawer>
+      </Hidden>
+    </FlexView>
+  );
+};
+
+export default withStyles(styles, { withTheme: true })(NavigationDrawer);

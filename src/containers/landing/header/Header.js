@@ -10,6 +10,10 @@ import HeaderComponent from 'components/landing/header/Header';
 
 // style imports
 
+const toastrOptions = {
+  position: 'bottom-center'
+};
+
 class Header extends Component {
   constructor() {
     super();
@@ -24,7 +28,11 @@ class Header extends Component {
       this.props.history.push('/dashboard');
       return toastr.success('Login Successful', 'Welcome to Referix');
     } else {
-      toastr.error('Authentication Failed', res.message);
+      toastr.error(
+        'Authentication Failed',
+        res.message,
+        this.props.isMobile ? toastrOptions : {}
+      );
     }
   };
 
@@ -36,7 +44,11 @@ class Header extends Component {
       });
       return toastr.success('Signup Successful', 'Please log in');
     } else {
-      toastr.error('Authentication Failed', res.message);
+      toastr.error(
+        'Authentication Failed',
+        res.message,
+        this.props.isMobile ? toastrOptions : {}
+      );
     }
   };
 
@@ -58,8 +70,11 @@ class Header extends Component {
   }
 }
 
-function mapStateToProps({ auth }) {
-  return { authenticated: auth.authenticated };
+function mapStateToProps({ auth, responsive }) {
+  return {
+    authenticated: auth.authenticated,
+    isMobile: responsive.isMobile
+  };
 }
 
 export default connect(mapStateToProps, actions)(Header);

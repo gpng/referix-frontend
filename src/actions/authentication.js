@@ -124,7 +124,6 @@ export const logout = () => async dispatch => {
  * GET /user/:role
  */
 export const getCurrentUser = () => async dispatch => {
-  console.log(resolveUserUrl());
   let err, res;
   [err, res] = await to(
     axios.get(`${resolveUserUrl()}/${localStorage.getItem('user_id')}`, {

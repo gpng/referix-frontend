@@ -3,13 +3,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import FlexView from 'react-flexview';
 import Typography from 'material-ui/Typography';
-import TextField from 'material-ui/TextField';
-import Menu from 'material-ui/Menu';
 import { MenuItem } from 'material-ui/Menu';
 import Copyright from 'material-ui-icons/Copyright';
+
 // local imports
 import * as actions from 'actions';
-import background from 'assets/images/landing_background.jpeg';
 
 // style imports
 
