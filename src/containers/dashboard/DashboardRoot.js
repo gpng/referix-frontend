@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import FlexView from 'react-flexview';
 import { withStyles } from 'material-ui/styles';
-import { Route, Switch } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 
 // local imports
 import sysParams from 'sys_params';
@@ -68,15 +68,13 @@ class DashboardRoot extends Component {
       <FlexView column grow>
         <Navigation />
         <FlexView grow className={classes.content}>
-          <Switch>
-            <DefinedRoute label="Dashboard" targetComponent={Dashboard} />
-            <DefinedRoute
-              label="User Management"
-              targetComponent={UserManagement}
-            />
-            <DefinedRoute label="Profile" targetComponent={Profile} />
-            <DefinedRoute label="Your Jobs" targetComponent={JobManagement} />
-          </Switch>
+          <DefinedRoute label="Dashboard" targetComponent={Dashboard} />
+          <DefinedRoute
+            label="User Management"
+            targetComponent={UserManagement}
+          />
+          <DefinedRoute label="Profile" targetComponent={Profile} />
+          <DefinedRoute label="Your Jobs" targetComponent={JobManagement} />
         </FlexView>
       </FlexView>
     );
