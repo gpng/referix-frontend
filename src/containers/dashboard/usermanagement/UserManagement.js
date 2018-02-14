@@ -18,10 +18,6 @@ class UserManagement extends Component {
     this.state = { value: 0 };
   }
 
-  handleSubmit = values => {
-    console.log('submitttinggg', values);
-  };
-
   handleTabChange = (event, value) => {
     this.setState({ value });
   };
