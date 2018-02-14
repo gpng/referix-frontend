@@ -102,7 +102,9 @@ class Navigation extends Component {
       if (!this.props.user) {
         await this.props.getCurrentUser();
       }
-      this.setState({ firstName: this.props.user.first_name });
+      this.setState({
+        firstName: this.props.user.first_name || this.props.user.company_name
+      });
     } else if (validateAccess(sysParams.roles.admin)) {
       this.setState({ firstName: 'Admin' });
     }
