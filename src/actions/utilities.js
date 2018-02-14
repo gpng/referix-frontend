@@ -1,6 +1,7 @@
 import sysParams from 'sys_params';
 import jwtDecode from 'jwt-decode';
 import invert from 'lodash/invert';
+import find from 'lodash/find';
 
 /**
  * Checks if axios API response is successful
@@ -56,4 +57,13 @@ export const validateAccess = permissions => {
 export const getRoleFromRoleID = roleID => {
   const roles = sysParams.roles;
   return invert(roles)[roleID];
+};
+
+/**
+ * Get route details based on label name
+ * @param {string} label
+ */
+export const getRouteDetails = label => {
+  const routes = sysParams.routes;
+  return find(routes, { label });
 };

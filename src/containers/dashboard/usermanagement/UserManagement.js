@@ -8,7 +8,7 @@ import Tabs, { Tab } from 'material-ui/Tabs';
 
 // local imports
 import * as actions from 'actions';
-import CreateUser from 'containers/dashboard/user/CreateUser';
+import CreateUser from 'containers/dashboard/usermanagement/CreateUser';
 
 // style imports
 

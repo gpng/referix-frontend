@@ -6,13 +6,17 @@ import { withStyles } from 'material-ui/styles';
 import { Route, Switch } from 'react-router-dom';
 
 // local imports
-import Navigation from 'containers/dashboard/navigation/Navigation';
-import Dashboard from 'containers/dashboard/dashboard/Dashboard';
-import Profile from 'containers/dashboard/profile/Profile';
-import UserManagement from 'containers/dashboard/user/UserManagement';
 import sysParams from 'sys_params';
 import restrictedRoute from 'components/hoc/restrictedRoute';
 import * as actions from 'actions';
+import { getRouteDetails } from 'actions/utilities';
+
+// containers/components imports
+import Navigation from 'containers/dashboard/navigation/Navigation';
+import Dashboard from 'containers/dashboard/dashboard/Dashboard';
+import Profile from 'containers/dashboard/profile/Profile';
+import UserManagement from 'containers/dashboard/usermanagement/UserManagement';
+import JobManagement from 'containers/dashboard/jobmanagement/JobManagement';
 
 // style imports
 
@@ -33,6 +37,24 @@ const styles = theme => ({
   }
 });
 
+/**
+ * Returns routing component based on route label
+ * TODO: should this be in a seperate file?
+ * @param {string} label
+ * @param {component} targetComponent
+ */
+const DefinedRoute = props => {
+  const { label, targetComponent } = props;
+  const routeDetails = getRouteDetails(label);
+  return (
+    <Route
+      exact
+      path={routeDetails.path}
+      component={restrictedRoute(targetComponent, routeDetails.access)}
+    />
+  );
+};
+
 class DashboardRoot extends Component {
   constructor() {
     super();
@@ -41,27 +63,19 @@ class DashboardRoot extends Component {
 
   render() {
     const { classes } = this.props;
-    const roles = sysParams.roles;
 
     return (
       <FlexView column grow>
         <Navigation />
         <FlexView grow className={classes.content}>
           <Switch>
-            <Route exact path="/dashboard" component={Dashboard} />
-            <Route
-              exact
-              path="/dashboard/usermanagement"
-              component={restrictedRoute(UserManagement, roles.admin)}
+            <DefinedRoute label="Dashboard" targetComponent={Dashboard} />
+            <DefinedRoute
+              label="User Management"
+              targetComponent={UserManagement}
             />
-            <Route
-              exact
-              path="/dashboard/profile"
-              component={restrictedRoute(
-                Profile,
-                roles.recruiter + roles.company
-              )}
-            />
+            <DefinedRoute label="Profile" targetComponent={Profile} />
+            <DefinedRoute label="Your Jobs" targetComponent={JobManagement} />
           </Switch>
         </FlexView>
       </FlexView>

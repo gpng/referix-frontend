@@ -54,7 +54,6 @@ class Header extends Component {
 
   handleLogout = () => {
     this.props.logout();
-    this.handleDialogClose();
   };
 
   render() {
