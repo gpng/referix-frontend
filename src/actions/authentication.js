@@ -13,8 +13,22 @@ import {
   DONE_REFRESHING_TOKEN,
   GET_CURRENT_USER
 } from 'actions/types';
-import { isSuccess } from 'actions/utilities';
+import {
+  isSuccess,
+  getRoleFromRoleID,
+  getUserFromAccessToken
+} from 'actions/utilities';
 
+const resolveUserUrl = () => {
+  return `/user/${getRoleFromRoleID(getUserFromAccessToken().role_id)}`;
+};
+
+/**
+ * User creation for every role
+ * POST /user/:role
+ * @param {object} formData
+ * @param {integer} role This should be taken from sys_params.roles
+ */
 export const signup = (formData, role) => async dispatch => {
   let err, res, url;
   let config = {};
@@ -27,9 +41,18 @@ export const signup = (formData, role) => async dispatch => {
         }
       };
       break;
+    case sysParams.roles.recruiter:
+      url = '/user/recruiter';
+      config = {
+        headers: {
+          token: localStorage.getItem('access_token')
+        }
+      };
+      break;
     case sysParams.roles.company:
       url = '/user/company';
       break;
+
     default:
       return { success: false, message: 'No role defined' };
   }
@@ -47,6 +70,11 @@ export const signup = (formData, role) => async dispatch => {
   }
 };
 
+/**
+ * Login
+ * POST /oauth/token
+ * @param {object} formData
+ */
 export const login = formData => async dispatch => {
   let err, res;
   let req = formData;
@@ -71,6 +99,11 @@ export const login = formData => async dispatch => {
   }
 };
 
+/**
+ * Logout by rejecting token and clearing local storage
+ * Force redirect to landing page
+ * POST /token/reject
+ */
 export const logout = () => async dispatch => {
   // call reject token async but don't wait for response
   await axios.delete('/token/reject', {
@@ -86,10 +119,14 @@ export const logout = () => async dispatch => {
   return { success: true };
 };
 
+/**
+ * Get current user details
+ * GET /user/:role
+ */
 export const getCurrentUser = () => async dispatch => {
   let err, res;
   [err, res] = await to(
-    axios.get('/user/' + localStorage.getItem('user_id'), {
+    axios.get(`${resolveUserUrl()}/${localStorage.getItem('user_id')}`, {
       headers: {
         token: localStorage.getItem('access_token')
       }
@@ -109,6 +146,10 @@ export const getCurrentUser = () => async dispatch => {
   }
 };
 
+/**
+ * Request for new access token using current refresh token
+ * POST /oath/token
+ */
 const getAccessToken = async () => {
   let err, res;
   [err, res] = await to(
@@ -131,6 +172,11 @@ const getAccessToken = async () => {
   }
 };
 
+/**
+ * Dispatches freshTokenPromise to redux store to ensure that all async
+ * calls will wait for new access token
+ * @param {function} dispatch
+ */
 export const refreshToken = dispatch => {
   const freshTokenPromise = async () => {
     const res = await getAccessToken();

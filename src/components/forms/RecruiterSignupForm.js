@@ -29,7 +29,6 @@ let RecruiterSignupForm = props => {
     >
       <Field
         required
-        icon="glyphicon glyphicon-user"
         id="signup-email"
         name="email"
         label="Email"
@@ -39,7 +38,6 @@ let RecruiterSignupForm = props => {
       />
       <Field
         required
-        icon="glyphicon glyphicon-user"
         id="signup-password"
         name="password"
         label="Password"
@@ -49,7 +47,6 @@ let RecruiterSignupForm = props => {
       />
       <Field
         required
-        icon="glyphicon glyphicon-user"
         id="signup-first-name"
         name="first_name"
         label="First Name"
@@ -59,7 +56,6 @@ let RecruiterSignupForm = props => {
       />
       <Field
         required
-        icon="glyphicon glyphicon-user"
         id="signup-last-name"
         name="last_name"
         label="Last Name"
@@ -68,7 +64,6 @@ let RecruiterSignupForm = props => {
         validate={[required]}
       />
       <Field
-        icon="glyphicon glyphicon-user"
         id="signup-contact-number"
         name="contact_number"
         label="Contact Number"

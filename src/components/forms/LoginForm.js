@@ -21,13 +21,12 @@ const styles = {
 let LoginForm = props => {
   const { handleSubmit, submitting } = props;
 
-/* First Required-> Material UI Text validation */
-/* Second Required -> */
+  /* First Required-> Material UI Text validation */
+  /* Second Required -> */
   return (
     <form id="signupform" className="form-horizontal" onSubmit={handleSubmit}>
       <Field
         required
-        icon="glyphicon glyphicon-user"
         id="signup-email"
         name="username"
         label="Email"
@@ -37,7 +36,6 @@ let LoginForm = props => {
       />
       <Field
         required
-        icon="glyphicon glyphicon-user"
         id="signup-password"
         name="password"
         label="Password"

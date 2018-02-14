@@ -29,7 +29,6 @@ let CompanySignupForm = props => {
     >
       <Field
         required
-        icon="glyphicon glyphicon-user"
         id="signup-email"
         name="email"
         label="Email"
@@ -39,7 +38,6 @@ let CompanySignupForm = props => {
       />
       <Field
         required
-        icon="glyphicon glyphicon-user"
         id="signup-password"
         name="password"
         label="Password"
@@ -48,8 +46,6 @@ let CompanySignupForm = props => {
         validate={[required]}
       />
       <Field
-        required
-        icon="glyphicon glyphicon-user"
         id="signup-company-name"
         name="company_name"
         label="Company Name"

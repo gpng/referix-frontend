@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { Switch, Redirect } from 'react-router';
 import FlexView from 'react-flexview';
 import ReduxToastr from 'react-redux-toastr';
-import debounce from 'lodash.debounce';
+import debounce from 'lodash/debounce';
 
 // local imports
 import * as actions from 'actions';
@@ -45,12 +45,11 @@ class App extends Component {
           <FlexView grow column>
             <Route exact path="/" component={Header} />
             <Route path="/dashboard" component={DashboardRoot} />
-            <Route exact path="/footer" component={Footer} />
             <Switch>
               <Route exact path="/" component={Landing} />
-
               {this.handleRedirect()}
             </Switch>
+            <Route exact path="/" component={Footer} />
           </FlexView>
         </BrowserRouter>
         <ReduxToastr

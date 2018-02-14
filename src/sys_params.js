@@ -6,6 +6,14 @@ export default {
     // title: String to be displayed on header
     // access: Integer according to summation of role id
     */
+
+  /**
+   * @param {string} label Text to be displayed on nav bar
+   * @param {string} icon Icon to be displayed on nav bar, taken from material.io/icons/
+   * @param {string} path Redirect path
+   * @param {string} title Title to be displayed on header
+   * @param {integer} access Summation of role id, controls whether to display on nav bar
+   */
   routes: [
     {
       label: 'Dashboard',
@@ -27,6 +35,13 @@ export default {
       path: '/dashboard/profile',
       title: 'Profile',
       access: 6 // recruiter + company
+    },
+    {
+      label: 'Your Jobs',
+      icon: 'Work',
+      path: '/dashboard/jobmanagement',
+      title: 'Your Jobs',
+      access: 4 // company only
     }
   ],
   constants: {

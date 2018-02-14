@@ -9,6 +9,9 @@ const breakpoints = {
   xl: 1920
 };
 
+/**
+ * Tracks change from mobile <> desktop width for responsive design
+ */
 export const deviceWidthUpdated = () => (dispatch, getState) => {
   let isMobile = false;
   if (window.innerWidth < breakpoints.sm) {

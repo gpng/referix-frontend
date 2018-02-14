@@ -29,7 +29,6 @@ let AdminSignupForm = props => {
     >
       <Field
         required
-        icon="glyphicon glyphicon-user"
         id="signup-email"
         name="email"
         label="Email"
@@ -39,7 +38,6 @@ let AdminSignupForm = props => {
       />
       <Field
         required
-        icon="glyphicon glyphicon-user"
         id="signup-password"
         name="password"
         label="Password"
