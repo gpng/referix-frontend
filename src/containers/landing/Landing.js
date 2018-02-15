@@ -70,7 +70,11 @@ class Landing extends Component {
         <FlexView id="section1" style={styles.section1_root}>
           <FlexView basis="20%" />
           <FlexView basis="60%" vAlignContent="center" column>
-            <Typography type="display3" style={{ color: 'white' }} gutterBottom>
+            <Typography
+              variant="display3"
+              style={{ color: 'white' }}
+              gutterBottom
+            >
               Recruit and Earn Today
             </Typography>
             <TextField
@@ -87,42 +91,42 @@ class Landing extends Component {
         {/* first section [END] */}
         {/* second section [START] */}
         <FlexView id="section2" column shrink style={styles.section2_root}>
-          <Typography type="display1" color="primary" align="center">
+          <Typography variant="display1" color="primary" align="center">
             It's Easy to Get Started
           </Typography>
           <FlexView column={this.props.isMobile} style={{ marginTop: 24 }}>
             <FlexView column basis={this.props.isMobile ? 0 : '33%'}>
               <Avatar style={styles.section2_numberAvatar}>
-                <Typography type="title" color="primary">
+                <Typography variant="title" color="primary">
                   1
                 </Typography>
               </Avatar>
-              <Typography type="title">Sign Up Online</Typography>
-              <Typography type="body2" style={styles.section2_stepText}>
+              <Typography variant="title">Sign Up Online</Typography>
+              <Typography variant="body2" style={styles.section2_stepText}>
                 Tell us a little about yourself and your experiences. We will be
                 here every step of the way to guide you
               </Typography>
             </FlexView>
             <FlexView column basis={this.props.isMobile ? 0 : '33%'}>
               <Avatar style={styles.section2_numberAvatar}>
-                <Typography type="title" color="primary">
+                <Typography variant="title" color="primary">
                   2
                 </Typography>
               </Avatar>
-              <Typography type="title">Share Some Documents</Typography>
-              <Typography type="body2" style={styles.section2_stepText}>
+              <Typography variant="title">Share Some Documents</Typography>
+              <Typography variant="body2" style={styles.section2_stepText}>
                 Just drop by to speak to one of our recruitment specialists and
                 to submit necessary documents
               </Typography>
             </FlexView>
             <FlexView column basis={this.props.isMobile ? 0 : '33%'}>
               <Avatar style={styles.section2_numberAvatar}>
-                <Typography type="title" color="primary">
+                <Typography variant="title" color="primary">
                   3
                 </Typography>
               </Avatar>
-              <Typography type="title">Start Recruiting</Typography>
-              <Typography type="body2" style={styles.section2_stepText}>
+              <Typography variant="title">Start Recruiting</Typography>
+              <Typography variant="body2" style={styles.section2_stepText}>
                 Pick up any job posting and start recommending your best
                 candidates
               </Typography>
@@ -132,7 +136,7 @@ class Landing extends Component {
         {/* second section [END] */}
         {/* third section [START] */}
         <FlexView id="section3" column shrink style={styles.section3_root}>
-          <Typography type="display1" color="primary" align="center">
+          <Typography variant="display1" color="primary" align="center">
             Why Recruit With Us?
           </Typography>
           <FlexView column={this.props.isMobile} style={{ marginTop: 24 }}>
@@ -142,10 +146,10 @@ class Landing extends Component {
               hAlignContent="center"
             >
               <ShowChart style={styles.section3_icons} />
-              <Typography type="title" color="primary" align="center">
+              <Typography variant="title" color="primary" align="center">
                 EARN MORE
               </Typography>
-              <Typography type="body2" color="primary" align="center">
+              <Typography variant="body2" color="primary" align="center">
                 Boost your income today with our platform
               </Typography>
             </FlexView>
@@ -155,10 +159,10 @@ class Landing extends Component {
               hAlignContent="center"
             >
               <AccessTime style={styles.section3_icons} />
-              <Typography type="title" color="primary" align="center">
+              <Typography variant="title" color="primary" align="center">
                 24/7 RECRUITING
               </Typography>
-              <Typography type="body2" color="primary" align="center">
+              <Typography variant="body2" color="primary" align="center">
                 Recruit whenever it best suits your needs
               </Typography>
             </FlexView>
@@ -168,10 +172,10 @@ class Landing extends Component {
               hAlignContent="center"
             >
               <People style={styles.section3_icons} />
-              <Typography type="title" color="primary" align="center">
+              <Typography variant="title" color="primary" align="center">
                 EXPAND YOUR NETWORK
               </Typography>
-              <Typography type="body2" color="primary" align="center">
+              <Typography variant="body2" color="primary" align="center">
                 Meet new people and expand your network
               </Typography>
             </FlexView>
