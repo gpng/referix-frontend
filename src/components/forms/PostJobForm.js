@@ -73,7 +73,7 @@ let PostJobForm = props => {
         id="postjob-salary"
         name="salary"
         label="Salary"
-        type="number"
+        type="text"
         component={renderField}
         validate={[required]}
       />
@@ -88,7 +88,7 @@ let PostJobForm = props => {
       />
       <Button
         style={styles.button}
-        raised
+        variant="raised"
         color="primary"
         type="submit"
         onClick={this.handleSubmit}

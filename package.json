@@ -9,7 +9,7 @@
     "history": "^4.7.2",
     "jwt-decode": "^2.2.0",
     "lodash": "^4.17.5",
-    "material-ui": "^1.0.0-beta.30",
+    "material-ui": "^1.0.0-beta.33",
     "material-ui-icons": "^1.0.0-beta.17",
     "moment": "^2.20.1",
     "react": "^16.2.0",
@@ -31,17 +31,19 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "dev":
-      "concurrently \"npm run start\" \"npm run start --prefix ../referix-api\""
+    "dev": "concurrently \"npm run start\" \"npm run start --prefix ../referix-api\""
   },
   "proxy": {
     "^/user": {
       "target": "http://localhost:3000"
     },
-    "/token": {
+    "^/token": {
       "target": "http://localhost:3000"
     },
-    "/oauth/*": {
+    "^/oauth/*": {
+      "target": "http://localhost:3000"
+    },
+    "^/job": {
       "target": "http://localhost:3000"
     }
   }
