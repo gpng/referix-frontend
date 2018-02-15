@@ -70,7 +70,7 @@ const NavigationAppBar = props => {
           <MenuIcon />
         </IconButton>
         <FlexView grow>
-          <Typography type="title" color="inherit">
+          <Typography variant="title" color="inherit">
             {title}
           </Typography>
         </FlexView>
