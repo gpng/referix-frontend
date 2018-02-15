@@ -6,29 +6,37 @@ import { toastr } from 'react-redux-toastr';
 
 // local imports
 import * as actions from 'actions';
-import PostJobForm from 'components/forms/PostJobForm';
+import PostJobDialog from 'components/dashboard/jobmanagement/PostJobDialog';
 
 // style imports
 
 class JobManagement extends Component {
   constructor() {
     super();
-    this.state = {};
+    this.state = { toggle: true };
   }
 
   handleSubmit = async values => {
     const res = await this.props.postJob(values);
     if (res.success) {
+      this.handleToggle();
       return toastr.success('Post Job', 'Job successfully posted');
     } else {
       toastr.error('Post Job Failed', res.message);
     }
   };
 
+  handleToggle = () => {
+    this.setState({ toggle: !this.state.toggle });
+  };
+
   render() {
     return (
       <FlexView column grow>
-        <PostJobForm onSubmit={this.handleSubmit} />
+        <PostJobDialog
+          onSubmit={this.handleSubmit}
+          dialogClose={this.state.toggle}
+        />
       </FlexView>
     );
   }
