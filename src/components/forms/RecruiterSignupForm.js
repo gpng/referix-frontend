@@ -72,7 +72,7 @@ let RecruiterSignupForm = props => {
       />
       <Button
         style={styles.button}
-        raised
+        variant="raised"
         color="primary"
         type="submit"
         onClick={this.handleSubmit}

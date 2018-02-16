@@ -182,7 +182,7 @@ class HeaderComponent extends Component {
         <AppBar position="static">
           <Toolbar>
             <FlexView grow>
-              <Typography type="title" color="inherit">
+              <Typography variant="title" color="inherit">
                 Referix
               </Typography>
             </FlexView>

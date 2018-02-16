@@ -80,7 +80,7 @@ let NavigationDrawer = props => {
         hAlignContent="center"
       >
         <Link to="/" className={classes.drawerLink}>
-          <Typography type="title" color="inherit">
+          <Typography variant="title" color="inherit">
             REFERIX
           </Typography>
         </Link>
@@ -121,8 +121,12 @@ let NavigationDrawer = props => {
         <Drawer
           variant="permanent"
           open
-          hideBackdrop
-          disableEnforceFocus
+          // hideBackdrop
+          // disableEnforceFocus
+          ModalProps={{
+            hideBackdrop: true,
+            disableEnforceFocus: true
+          }}
           classes={{
             paper: classes.drawerPaper,
             modal: classes.drawerModal
