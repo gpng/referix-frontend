@@ -25,6 +25,7 @@ const appBarHeight = sysParams.constants.appBarHeight;
 
 const styles = theme => ({
   content: {
+    marginTop: appBarHeight,
     backgroundColor: '#ffffff',
     marginLeft: 0,
     width: '100%',

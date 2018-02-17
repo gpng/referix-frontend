@@ -59,7 +59,7 @@ const NavigationAppBar = props => {
   };
 
   return (
-    <AppBar position="static" className={classes.appBar}>
+    <AppBar position="fixed" className={classes.appBar}>
       <Toolbar>
         <IconButton
           color="inherit"
