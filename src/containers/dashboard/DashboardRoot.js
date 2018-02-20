@@ -17,6 +17,7 @@ import Dashboard from 'containers/dashboard/dashboard/Dashboard';
 import Profile from 'containers/dashboard/profile/Profile';
 import UserManagement from 'containers/dashboard/usermanagement/UserManagement';
 import JobManagement from 'containers/dashboard/jobmanagement/JobManagement';
+import ProfileManagement from 'containers/dashboard/profilemanagement/ProfileManagement';
 
 // style imports
 
@@ -74,6 +75,7 @@ class DashboardRoot extends Component {
             label="User Management"
             targetComponent={UserManagement}
           />
+          <DefinedRoute label="Profile Management" targetComponent={ProfileManagement} />
           <DefinedRoute label="Profile" targetComponent={Profile} />
           <DefinedRoute label="Your Jobs" targetComponent={JobManagement} />
         </FlexView>

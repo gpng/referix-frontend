@@ -42,7 +42,14 @@ export default {
       path: '/dashboard/jobmanagement',
       title: 'Your Jobs',
       access: 4 // company only
-    }
+    },
+    {
+        label: 'Profile Management',
+        icon: 'Edit',
+        path: '/dashboard/profilemanagement',
+        title: 'Profile Management',
+        access: 7 //  everyone
+      }
   ],
   constants: {
     drawerWidth: 240,
