@@ -16,6 +16,10 @@ const styles = theme => ({
   }
 });
 
+/**
+ *
+ * @param {object[]} jobs Array of job objects to be displayed
+ */
 const DisplayJobCards = props => {
   const { jobs, classes } = props;
   console.log('jobs', jobs);
@@ -25,7 +29,7 @@ const DisplayJobCards = props => {
     jobs.forEach(job => {
       if (job.is_active) {
         jobList.push(
-          <Card>
+          <Card key={job.job_id}>
             <CardContent>
               <Typography variant="title">{job.job_title}</Typography>
               <Typography variant="subheading">{`${job.job_type} | ${
