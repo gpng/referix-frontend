@@ -32,7 +32,7 @@ let ProfileManagementForm = props => {
 
       <FormControl fullWidth disabled>
          <InputLabel>Email</InputLabel>
-         <Input id="name-disabled" value="testing@hotmail.com"/>
+         <Input id="name-disabled" value={userDetails.email}/>
          <FormHelperText>Your Email Address</FormHelperText>
        </FormControl>
 
