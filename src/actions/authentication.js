@@ -140,7 +140,7 @@ export const getCurrentUser = () => async dispatch => {
   }
   if (isSuccess(res.data)) {
     dispatch({ type: GET_CURRENT_USER, user: res.data.data[0] });
-    return { success: true };
+    return { success: true, data:res.data.data };
   } else {
     return { success: false, message: res.data.error.text };
   }

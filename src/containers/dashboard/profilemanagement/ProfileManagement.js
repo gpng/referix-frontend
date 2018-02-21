@@ -9,23 +9,35 @@ import sysParams from 'sys_params';
 import ProfileManagementForm from 'components/forms/ProfileManagementForm';
 import Typography from 'material-ui/Typography';
 
+
+
 class ProfileManagement extends Component {
   constructor() {
     super();
+    this.state = { userDetails: [] };
   }
 
+  componentDidMount = () => {
+    this.getCurrentUser();
+  };
 
-  renderForm = () => {
-        return <ProfileManagementForm onSubmit={this.handleSubmit} />;
+  getCurrentUser  = async () => {
+      const res = await this.props.getCurrentUser();
+      if (res.success) {
+        this.setState({ userDetails: res.data[0] });
+      }
     };
 
+    renderForm = () => {
+          return <ProfileManagementForm userDetails={this.state.userDetails} />;
+      };
 
   render() {
     return (
       <FlexView grow column style={{ padding: 8 }}>
         {this.renderForm()}
         <Typography>
-        Not working yet ,
+        Not working yet
         </Typography>
       </FlexView>
 

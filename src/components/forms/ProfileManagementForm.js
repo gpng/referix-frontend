@@ -7,6 +7,9 @@ import {
   email
 } from 'components/forms/FormFieldValidation';
 import Button from 'material-ui/Button';
+import { withStyles } from 'material-ui/styles';
+import Input, { InputLabel } from 'material-ui/Input';
+import { FormControl, FormHelperText } from 'material-ui/Form';
 
 // local imports
 
@@ -19,22 +22,20 @@ const styles = {
 };
 
 let ProfileManagementForm = props => {
-  const { handleSubmit, submitting } = props;
-
+  const {handleSubmit, submitting, userDetails} = props;
   return (
     <form
       id="profile-management-form"
       className="form-horizontal"
       onSubmit={handleSubmit}
     >
-      <Field
-        required
-        id="change-email"
-        name="email"
-        label="Email"
-        type="email"
-        component={renderField} //Need to make a call to display current email address used
-      />
+
+      <FormControl fullWidth disabled>
+         <InputLabel>Email</InputLabel>
+         <Input id="name-disabled" value="testing@hotmail.com"/>
+         <FormHelperText>Your Email Address</FormHelperText>
+       </FormControl>
+
       <Field
         required
         id="change-password"
