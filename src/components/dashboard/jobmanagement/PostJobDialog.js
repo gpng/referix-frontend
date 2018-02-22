@@ -64,7 +64,7 @@ class PostJobDialog extends Component {
                 marginRight: '-10px',
                 width: '20px'
               }}
-              onClick={this.handleDialogClose}
+              onClick={this.handleClose}
             />
           </DialogTitle>
           <DialogContent>

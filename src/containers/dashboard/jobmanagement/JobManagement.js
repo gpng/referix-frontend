@@ -7,6 +7,7 @@ import { toastr } from 'react-redux-toastr';
 // local imports
 import * as actions from 'actions';
 import PostJobDialog from 'components/dashboard/jobmanagement/PostJobDialog';
+import EditJobDialog from 'components/dashboard/jobmanagement/EditJobDialog';
 import DisplayJobCards from 'components/dashboard/jobmanagement/DisplayJobCards';
 
 // style imports
@@ -14,7 +15,12 @@ import DisplayJobCards from 'components/dashboard/jobmanagement/DisplayJobCards'
 class JobManagement extends Component {
   constructor() {
     super();
-    this.state = { toggle: true, jobs: [] };
+    this.state = {
+      postToggle: true,
+      editToggle: true,
+      jobs: [],
+      selectedJob: null
+    };
   }
 
   componentDidMount = () => {
@@ -28,10 +34,10 @@ class JobManagement extends Component {
     }
   };
 
-  handleSubmit = async values => {
+  handlePostSubmit = async values => {
     const res = await this.props.postJob(values);
     if (res.success) {
-      this.handleToggle();
+      this.handlePostToggle();
       this.getUserJobs();
       return toastr.success('Post Job', 'Job successfully posted');
     } else {
@@ -39,18 +45,41 @@ class JobManagement extends Component {
     }
   };
 
-  handleToggle = () => {
-    this.setState({ toggle: !this.state.toggle });
+  handleEditSubmit = async values => {
+    const res = await this.props.putJob(values);
+    if (res.success) {
+      this.handleEditToggle();
+      this.getUserJobs();
+      return toastr.success('Edit Job', 'Job successfully updated');
+    } else {
+      return toastr.error('Edit Job Failed', res.message);
+    }
+  };
+
+  handlePostToggle = () => {
+    this.setState({ postToggle: !this.state.postToggle });
+  };
+
+  handleEditToggle = job => {
+    this.setState({ selectedJob: job, editToggle: !this.state.editToggle });
   };
 
   render() {
     return (
       <FlexView column grow>
         <PostJobDialog
-          onSubmit={this.handleSubmit}
-          dialogClose={this.state.toggle}
+          onSubmit={this.handlePostSubmit}
+          dialogClose={this.state.postToggle}
         />
-        <DisplayJobCards jobs={this.state.jobs} />
+        <EditJobDialog
+          onSubmit={this.handleEditSubmit}
+          toggle={this.state.editToggle}
+          job={this.state.selectedJob}
+        />
+        <DisplayJobCards
+          jobs={this.state.jobs}
+          onOpenDialog={this.handleEditToggle}
+        />
       </FlexView>
     );
   }

@@ -2,8 +2,9 @@
 import React from 'react';
 import FlexView from 'react-flexview';
 import { withStyles } from 'material-ui/styles';
-import Card, { CardContent } from 'material-ui/Card';
+import Card, { CardContent, CardActions } from 'material-ui/Card';
 import Typography from 'material-ui/Typography';
+import Button from 'material-ui/Button';
 
 // local imports
 
@@ -20,7 +21,7 @@ const styles = theme => ({
  * @param {object[]} jobs Array of job objects to be displayed
  */
 const DisplayJobCards = props => {
-  const { jobs, classes } = props;
+  const { jobs, classes, onOpenDialog } = props;
 
   const renderJobCards = () => {
     let jobList = [];
@@ -47,6 +48,15 @@ const DisplayJobCards = props => {
                 {job.compensation_benefits}
               </Typography>
             </CardContent>
+            <CardActions>
+              <Button
+                size="small"
+                color="secondary"
+                onClick={onOpenDialog.bind(this, job)}
+              >
+                Edit Details
+              </Button>
+            </CardActions>
           </Card>
         );
       }

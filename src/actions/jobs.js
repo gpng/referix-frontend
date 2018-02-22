@@ -35,6 +35,42 @@ export const postJob = formData => async dispatch => {
 };
 
 /**
+ * Edit job
+ * PUT /user/:userId/job/:jobId
+ * @param {object} formData
+ */
+export const putJob = formData => async dispatch => {
+  let err, res;
+  const userID = getUserFromAccessToken().user_id;
+  const req = formData;
+  const url = `/user/${userID}/job/${req.job_id}`;
+  const config = {
+    headers: {
+      token: localStorage.getItem('access_token')
+    }
+  };
+
+  // remove unused keys
+  delete req.job_id;
+  delete req.user_id;
+  delete req.created_at;
+  delete req.updated_at;
+
+  [err, res] = await to(axios.put(url, req, config));
+  if (err) {
+    return {
+      success: false,
+      message: err.response.data.error_description
+    };
+  }
+  if (isSuccess(res.data)) {
+    return { success: true };
+  } else {
+    return { success: false, message: res.data.error_description };
+  }
+};
+
+/**
  * Get jobs posted by company
  * GET /user/:userId/job
  */
