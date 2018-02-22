@@ -1,15 +1,9 @@
 // module imports
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
-import {
-  renderField,
-  required,
-  email
-} from 'components/forms/FormFieldValidation';
+import { renderField, required } from 'components/forms/FormFieldValidation';
 import Button from 'material-ui/Button';
-import { withStyles } from 'material-ui/styles';
-import Input, { InputLabel } from 'material-ui/Input';
-import { FormControl, FormHelperText } from 'material-ui/Form';
+import TextField from 'material-ui/TextField';
 
 // local imports
 
@@ -22,19 +16,20 @@ const styles = {
 };
 
 let ProfileManagementForm = props => {
-  const {handleSubmit, submitting, userDetails} = props;
+  const { handleSubmit, submitting, userDetails } = props;
   return (
     <form
       id="profile-management-form"
       className="form-horizontal"
       onSubmit={handleSubmit}
     >
+      <TextField label="Email" defaultValue={userDetails.email} disabled />
 
-      <FormControl fullWidth disabled>
-         <InputLabel>Email</InputLabel>
-         <Input id="name-disabled" value={userDetails.email}/>
-         <FormHelperText>Your Email Address</FormHelperText>
-       </FormControl>
+      {/* <FormControl fullWidth disabled>
+        <InputLabel>Email</InputLabel>
+        <Input id="name-disabled" value={userDetails.email} />
+        <FormHelperText>Your Email Address</FormHelperText>
+      </FormControl> */}
 
       <Field
         required
