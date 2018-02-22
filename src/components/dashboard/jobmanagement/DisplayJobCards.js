@@ -3,7 +3,6 @@ import React from 'react';
 import FlexView from 'react-flexview';
 import { withStyles } from 'material-ui/styles';
 import Card, { CardContent } from 'material-ui/Card';
-import Button from 'material-ui/Button';
 import Typography from 'material-ui/Typography';
 
 // local imports
@@ -22,7 +21,6 @@ const styles = theme => ({
  */
 const DisplayJobCards = props => {
   const { jobs, classes } = props;
-  console.log('jobs', jobs);
 
   const renderJobCards = () => {
     let jobList = [];

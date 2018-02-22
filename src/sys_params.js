@@ -1,12 +1,4 @@
 export default {
-  /* Params:
-    // label: String to be displayed on nav
-    // icon: Icon to be displayed on nav, taken from material.io/icons/
-    // path: redirect path
-    // title: String to be displayed on header
-    // access: Integer according to summation of role id
-    */
-
   /**
    * @param {string} label Text to be displayed on nav bar
    * @param {string} icon Icon to be displayed on nav bar, taken from material.io/icons/
@@ -44,12 +36,12 @@ export default {
       access: 4 // company only
     },
     {
-        label: 'Profile Management',
-        icon: 'Edit',
-        path: '/dashboard/profilemanagement',
-        title: 'Profile Management',
-        access: 7 //  everyone
-      }
+      label: 'Profile Management',
+      icon: 'Edit',
+      path: '/dashboard/profilemanagement',
+      title: 'Profile Management',
+      access: 7 //  everyone
+    }
   ],
   constants: {
     drawerWidth: 240,
