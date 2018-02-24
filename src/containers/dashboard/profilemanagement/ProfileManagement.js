@@ -52,7 +52,6 @@ class ProfileManagement extends Component {
     return (
       <FlexView grow column style={{ padding: 8 }}>
         {this.renderForm()}
-        <Typography>Not working yet</Typography>
       </FlexView>
     );
   }
