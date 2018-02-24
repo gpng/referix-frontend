@@ -28,6 +28,7 @@ let ProfileManagementForm = props => {
         defaultValue={userDetails.email}
         fullWidth
         disabled
+        helperText= "Your Email Address"
       />
 
       {/* <FormControl fullWidth disabled>

@@ -10,10 +10,7 @@ class ProfileManagement extends Component {
   constructor() {
     super();
     this.state = {
-      userDetails: null,
-      currentPass: null,
-      newPass: null,
-      confirmnewPass: null
+      userDetails: null
     };
   }
 

@@ -40,7 +40,7 @@ export default {
       icon: 'Edit',
       path: '/dashboard/profilemanagement',
       title: 'Profile Management',
-      access: 7 //  everyone
+      access: 6 //  recruiter + company
     }
   ],
   constants: {

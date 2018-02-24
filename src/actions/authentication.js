@@ -201,6 +201,8 @@ export const refreshToken = dispatch => {
   return freshTokenPromise();
 };
 
+/* To Update Users Password */
+
 export const updatePassword = formData => async dispatch => {
   let err, res;
   let config = {
