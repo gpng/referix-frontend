@@ -1,9 +1,9 @@
 // module imports
-import React from 'react';
-import { Field, reduxForm } from 'redux-form';
-import { renderField, required } from 'components/forms/FormFieldValidation';
-import Button from 'material-ui/Button';
-import TextField from 'material-ui/TextField';
+import React from "react";
+import { Field, reduxForm } from "redux-form";
+import { renderField, required } from "components/forms/FormFieldValidation";
+import Button from "material-ui/Button";
+import TextField from "material-ui/TextField";
 
 // local imports
 
@@ -23,7 +23,12 @@ let ProfileManagementForm = props => {
       className="form-horizontal"
       onSubmit={handleSubmit}
     >
-      <TextField label="Email" defaultValue={userDetails.email} disabled />
+      <TextField
+        label="Email"
+        defaultValue={userDetails.email}
+        fullWidth
+        disabled
+      />
 
       {/* <FormControl fullWidth disabled>
         <InputLabel>Email</InputLabel>
@@ -33,8 +38,8 @@ let ProfileManagementForm = props => {
 
       <Field
         required
-        id="change-password"
-        name="current_password"
+        id="current-password"
+        name="old_password"
         label="Current Password"
         type="password"
         component={renderField}
@@ -42,7 +47,7 @@ let ProfileManagementForm = props => {
       />
       <Field
         required
-        id="change-password"
+        id="new-password"
         name="new_password"
         label="New Password"
         type="password"
@@ -51,7 +56,7 @@ let ProfileManagementForm = props => {
       />
       <Field
         required
-        id="change-password"
+        id="confirmnew-password"
         name="confirm_new_password"
         label="Confirm New Password"
         type="password"
@@ -74,7 +79,7 @@ let ProfileManagementForm = props => {
 
 ProfileManagementForm = reduxForm({
   // a unique name for the form
-  form: 'profile_management'
+  form: "profile_management"
 })(ProfileManagementForm);
 
 export default ProfileManagementForm;
