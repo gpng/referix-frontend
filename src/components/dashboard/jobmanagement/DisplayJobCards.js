@@ -48,15 +48,17 @@ const DisplayJobCards = props => {
                 {job.compensation_benefits}
               </Typography>
             </CardContent>
-            <CardActions>
-              <Button
-                size="small"
-                color="secondary"
-                onClick={onOpenDialog.bind(this, job)}
-              >
-                Edit Details
-              </Button>
-            </CardActions>
+            {onOpenDialog && (
+              <CardActions>
+                <Button
+                  size="small"
+                  color="secondary"
+                  onClick={onOpenDialog.bind(this, job)}
+                >
+                  Edit Details
+                </Button>
+              </CardActions>
+            )}
           </Card>
         );
       }

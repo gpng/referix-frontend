@@ -29,6 +29,13 @@ export default {
       access: 6 // recruiter + company
     },
     {
+      label: 'Search Jobs',
+      icon: 'Work',
+      path: '/dashboard/jobsearch',
+      title: 'Search Jobs',
+      access: 2 // recruiter only
+    },
+    {
       label: 'Your Jobs',
       icon: 'Work',
       path: '/dashboard/jobmanagement',
