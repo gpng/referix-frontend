@@ -1,9 +1,9 @@
 // module imports
-import axios from "axios";
-import to from "await-to-js";
-import jwtDecode from "jwt-decode";
-import { push } from "react-router-redux";
-import sysParams from "sys_params";
+import axios from 'axios';
+import to from 'await-to-js';
+import jwtDecode from 'jwt-decode';
+import { push } from 'react-router-redux';
+import sysParams from 'sys_params';
 
 // local imports
 import {
@@ -12,16 +12,8 @@ import {
   REFRESHING_TOKEN,
   DONE_REFRESHING_TOKEN,
   GET_CURRENT_USER
-} from "actions/types";
-import {
-  isSuccess,
-  getRoleFromRoleID,
-  getUserFromAccessToken
-} from "actions/utilities";
-
-const resolveUserUrl = () => {
-  return `/user/${getRoleFromRoleID(getUserFromAccessToken().role_id)}`;
-};
+} from 'actions/types';
+import { isSuccess, resolveUserUrl } from 'actions/utilities';
 
 /**
  * User creation for every role
@@ -32,29 +24,30 @@ const resolveUserUrl = () => {
 export const signup = (formData, role) => async dispatch => {
   let err, res, url;
   let config = {};
+
   switch (role) {
     case sysParams.roles.admin:
-      url = "/user/admin";
+      url = '/user/admin';
       config = {
         headers: {
-          token: localStorage.getItem("access_token")
+          token: localStorage.getItem('access_token')
         }
       };
       break;
     case sysParams.roles.recruiter:
-      url = "/user/recruiter";
+      url = '/user/recruiter';
       config = {
         headers: {
-          token: localStorage.getItem("access_token")
+          token: localStorage.getItem('access_token')
         }
       };
       break;
     case sysParams.roles.company:
-      url = "/user/company";
+      url = '/user/company';
       break;
 
     default:
-      return { success: false, message: "No role defined" };
+      return { success: false, message: 'No role defined' };
   }
   [err, res] = await to(axios.post(url, formData, config));
   if (err) {
@@ -78,8 +71,8 @@ export const signup = (formData, role) => async dispatch => {
 export const login = formData => async dispatch => {
   let err, res;
   let req = formData;
-  req.grant_type = "password";
-  [err, res] = await to(axios.post("/oauth/token", req));
+  req.grant_type = 'password';
+  [err, res] = await to(axios.post('/oauth/token', req));
   if (err) {
     return {
       success: false,
@@ -90,9 +83,9 @@ export const login = formData => async dispatch => {
     dispatch({ type: AUTHENTICATED });
     const decoded = jwtDecode(res.data.access_token);
     console.log(decoded);
-    localStorage.setItem("access_token", res.data.access_token);
-    localStorage.setItem("refresh_token", res.data.refresh_token);
-    localStorage.setItem("user_id", decoded.user_id);
+    localStorage.setItem('access_token', res.data.access_token);
+    localStorage.setItem('refresh_token', res.data.refresh_token);
+    localStorage.setItem('user_id', decoded.user_id);
     return { success: true };
   } else {
     return { success: false, message: res.data.error_description };
@@ -106,16 +99,16 @@ export const login = formData => async dispatch => {
  */
 export const logout = () => async dispatch => {
   // call reject token async but don't wait for response
-  await axios.delete("/token/reject", {
+  await axios.delete('/token/reject', {
     data: {
-      refresh_token: localStorage.getItem("refresh_token")
+      refresh_token: localStorage.getItem('refresh_token')
     }
   });
 
   // clear localstorage and logout no matter if call is successful
   dispatch({ type: UNAUTHENTICATED });
   localStorage.clear();
-  dispatch(push("/"));
+  dispatch(push('/'));
   return { success: true };
 };
 
@@ -126,9 +119,9 @@ export const logout = () => async dispatch => {
 export const getCurrentUser = () => async dispatch => {
   let err, res;
   [err, res] = await to(
-    axios.get(`${resolveUserUrl()}/${localStorage.getItem("user_id")}`, {
+    axios.get(`${resolveUserUrl()}/${localStorage.getItem('user_id')}`, {
       headers: {
-        token: localStorage.getItem("access_token")
+        token: localStorage.getItem('access_token')
       }
     })
   );
@@ -153,9 +146,9 @@ export const getCurrentUser = () => async dispatch => {
 const getAccessToken = async () => {
   let err, res;
   [err, res] = await to(
-    axios.post("/oauth/token", {
-      grant_type: "refresh_token",
-      refresh_token: localStorage.getItem("refresh_token")
+    axios.post('/oauth/token', {
+      grant_type: 'refresh_token',
+      refresh_token: localStorage.getItem('refresh_token')
     })
   );
   if (err) {
@@ -165,7 +158,7 @@ const getAccessToken = async () => {
     };
   }
   if (isSuccess(res.data)) {
-    localStorage.setItem("access_token", res.data.access_token);
+    localStorage.setItem('access_token', res.data.access_token);
     return { success: true };
   } else {
     return { success: false, message: res.data.error.text };
@@ -186,7 +179,7 @@ export const refreshToken = dispatch => {
       });
       return res;
     } else {
-      console.log("error refreshing token");
+      console.log('error refreshing token');
       dispatch({
         type: DONE_REFRESHING_TOKEN
       });
@@ -207,13 +200,13 @@ export const updatePassword = formData => async dispatch => {
   let err, res;
   let config = {
     headers: {
-      token: localStorage.getItem("access_token")
+      token: localStorage.getItem('access_token')
     }
   };
 
   [err, res] = await to(
     axios.put(
-      "/user/" + localStorage.getItem("user_id") + "/password",
+      '/user/' + localStorage.getItem('user_id') + '/password',
       formData,
       config
     )

@@ -67,3 +67,10 @@ export const getRouteDetails = label => {
   const routes = sysParams.routes;
   return find(routes, { label });
 };
+
+/**
+ * Get user api route based on role
+ */
+export const resolveUserUrl = () => {
+  return `/user/${getRoleFromRoleID(getUserFromAccessToken().role_id)}`;
+};
