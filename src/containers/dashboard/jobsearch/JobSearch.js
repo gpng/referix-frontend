@@ -45,7 +45,7 @@ class JobSearch extends Component {
   searchText(list, text) {
     const options = {
       shouldSort: true,
-      threshold: 0.0,
+      threshold: 0.1,
       location: 0,
       distance: 100,
       maxPatternLength: 32,
