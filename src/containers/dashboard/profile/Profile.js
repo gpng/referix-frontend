@@ -1,30 +1,82 @@
 // module imports
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import FlexView from 'react-flexview';
-
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import FlexView from "react-flexview";
+import { ImageAvatars } from "components/dashboard/userprofile/ProfilePage.js";
+import PropTypes from "prop-types";
+import classNames from "classnames";
+import Typography from "material-ui/Typography";
+import RecruiterProfileUpdateForm from "components/forms/RecruiterProfileUpdateForm.js";
+import CompanyProfileUpdateForm from "components/forms//CompanyProfileUpdateForm.js";
+import { toastr } from "react-redux-toastr";
 // local imports
-import * as actions from 'actions';
+import * as actions from "actions";
 
-// style imports
+const styles = {
+  alt: "Shen",
+  sizes: {
+    width: 400,
+    height: 400
+  }
+};
 
 class Profile extends Component {
   constructor() {
     super();
-    this.state = {};
+    this.state = {
+      userDetails: null
+    };
   }
 
   componentWillMount = () => {
-    console.log(this.props.user);
+    this.getCurrentUser();
+  };
+
+  getCurrentUser = async () => {
+    const res = await this.props.getCurrentUser();
+    if (res.success) {
+      this.setState({ userDetails: res.data[0] });
+    }
+  };
+
+  handleSubmit = async values => {
+    const res = await this.props.updateProfile(values);
+    if (res.success) {
+      return toastr.success("Profile Updated");
+    } else {
+      toastr.error("Validation Failed", res.message);
+    }
+  };
+
+  renderForm = () => {
+    if (this.state.userDetails.role_id === 2) {
+      return (
+        <RecruiterProfileUpdateForm
+          userDetails={this.state.userDetails}
+          onSubmit={this.handleSubmit}
+        />
+      );
+    } else if (this.state.userDetails.role_id === 4) {
+      return (
+        <CompanyProfileUpdateForm
+          userDetails={this.state.userDetails}
+          onSubmit={this.handleSubmit}
+        />
+      );
+    }
   };
 
   render() {
-    return <FlexView grow>PROFILE HERE</FlexView>;
+    return (
+      <FlexView grow column style={{ padding: 8 }}>
+        {this.renderForm()}
+      </FlexView>
+    );
   }
 }
 
 function mapStateToProps({ auth }) {
-  return { user: auth.user };
+  return { authenticated: auth.authenticated };
 }
 
 export default connect(mapStateToProps, actions)(Profile);
