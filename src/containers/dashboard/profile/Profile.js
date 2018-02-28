@@ -24,7 +24,7 @@ class Profile extends Component {
   constructor() {
     super();
     this.state = {
-      userDetails: null
+      userDetails: {}
     };
   }
 
