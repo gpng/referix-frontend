@@ -225,7 +225,7 @@ export const updatePassword = formData => async dispatch => {
 };
 
 export const updateProfile = formData => async dispatch => {
-  let err,res;
+  let err, res;
   let config = {
     headers: {
       token: localStorage.getItem('access_token')
@@ -234,7 +234,7 @@ export const updateProfile = formData => async dispatch => {
 
   [err, res] = await to(
     axios.put(
-      `${resolveUserUrl()}/${localStorage.getItem('user_id')}`+ '/profile' ,
+      `${resolveUserUrl()}/${localStorage.getItem('user_id')}/profile`,
       formData,
       config
     )
@@ -250,4 +250,4 @@ export const updateProfile = formData => async dispatch => {
   } else {
     return { success: false, message: res.data.error.text };
   }
-  };
+};
