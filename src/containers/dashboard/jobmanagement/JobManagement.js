@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import FlexView from 'react-flexview';
 import { toastr } from 'react-redux-toastr';
+import orderBy from 'lodash/orderBy';
 
 // local imports
 import * as actions from 'actions';
@@ -30,7 +31,7 @@ class JobManagement extends Component {
   getUserJobs = async () => {
     const res = await this.props.getUserJobs();
     if (res.success) {
-      this.setState({ jobs: res.data });
+      this.setState({ jobs: orderBy(res.data, ['updated_at'], ['desc']) });
     }
   };
 
