@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import FlexView from "react-flexview";
 import * as actions from "actions";
 import ProfileManagementForm from "components/forms/ProfileManagementForm";
-import Typography from "material-ui/Typography";
 import { toastr } from "react-redux-toastr";
 
 class ProfileManagement extends Component {

@@ -2,15 +2,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import FlexView from "react-flexview";
-import { ImageAvatars } from "components/dashboard/userprofile/ProfilePage.js";
-import PropTypes from "prop-types";
-import classNames from "classnames";
-import Typography from "material-ui/Typography";
 import RecruiterProfileUpdateForm from "components/forms/RecruiterProfileUpdateForm.js";
 import CompanyProfileUpdateForm from "components/forms//CompanyProfileUpdateForm.js";
 import { toastr } from "react-redux-toastr";
 // local imports
 import * as actions from "actions";
+import sysParams from "sys_params";
 
 const styles = {
   alt: "Shen",
@@ -41,6 +38,7 @@ class Profile extends Component {
 
   handleSubmit = async values => {
     const res = await this.props.updateProfile(values);
+
     if (res.success) {
       return toastr.success("Profile Updated");
     } else {
@@ -49,14 +47,14 @@ class Profile extends Component {
   };
 
   renderForm = () => {
-    if (this.state.userDetails.role_id === 2) {
+    if (this.state.userDetails.role_id === sysParams.roles.recruiter) {
       return (
         <RecruiterProfileUpdateForm
           userDetails={this.state.userDetails}
           onSubmit={this.handleSubmit}
         />
       );
-    } else if (this.state.userDetails.role_id === 4) {
+    } else if (this.state.userDetails.role_id === sysParams.roles.company) {
       return (
         <CompanyProfileUpdateForm
           userDetails={this.state.userDetails}
