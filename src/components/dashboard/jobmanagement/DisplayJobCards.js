@@ -5,6 +5,7 @@ import { withStyles } from 'material-ui/styles';
 import Card, { CardContent, CardActions } from 'material-ui/Card';
 import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
+import Chip from 'material-ui/Chip';
 
 // local imports
 
@@ -13,6 +14,12 @@ import Button from 'material-ui/Button';
 const styles = theme => ({
   root: {
     paddingTop: 32
+  },
+  chip: {
+    margin: 2
+  },
+  cardContent: {
+    paddingBottom: 4
   }
 });
 
@@ -23,13 +30,22 @@ const styles = theme => ({
 const DisplayJobCards = props => {
   const { jobs, classes, onOpenDialog } = props;
 
+  const renderChips = compensation_benefits => {
+    const list = compensation_benefits.split('|');
+    let renderArr = [];
+    for (let i = 0; i < list.length; i++) {
+      renderArr.push(<Chip key={i} label={list[i]} className={classes.chip} />);
+    }
+    return renderArr;
+  };
+
   const renderJobCards = () => {
     let jobList = [];
     jobs.forEach(job => {
       if (job.is_active) {
         jobList.push(
           <Card key={job.job_id}>
-            <CardContent>
+            <CardContent className={classes.cardContent}>
               <Typography variant="title">{job.job_title}</Typography>
               <Typography variant="subheading">{`${job.job_type} | ${
                 job.job_sector
@@ -44,9 +60,11 @@ const DisplayJobCards = props => {
                 <strong>Skills:</strong> {job.skills}
               </Typography>
               <Typography>
-                <strong>Compensation and Benefits:</strong>{' '}
-                {job.compensation_benefits}
+                <strong>Compensation and Benefits:</strong>
               </Typography>
+              <FlexView grow wrap>
+                {renderChips(job.compensation_benefits)}
+              </FlexView>
             </CardContent>
             {onOpenDialog && (
               <CardActions>

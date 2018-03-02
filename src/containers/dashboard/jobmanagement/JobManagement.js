@@ -36,6 +36,14 @@ class JobManagement extends Component {
   };
 
   handlePostSubmit = async values => {
+    if (
+      !(values.compensation_benefits && values.compensation_benefits !== '')
+    ) {
+      return toastr.error(
+        'Post Job Failed',
+        'Compensation and benefits required'
+      );
+    }
     const res = await this.props.postJob(values);
     if (res.success) {
       this.handlePostToggle();
