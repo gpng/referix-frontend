@@ -74,3 +74,12 @@ export const getRouteDetails = label => {
 export const resolveUserUrl = () => {
   return `/user/${getRoleFromRoleID(getUserFromAccessToken().role_id)}`;
 };
+
+/**
+ * Deletes all null or empty key value pairs
+ * @param {*} obj Single layer object with keys
+ */
+export const cleanObject = obj => {
+  Object.keys(obj).forEach(key => obj[key] == (null || '') && delete obj[key]);
+  return obj;
+};

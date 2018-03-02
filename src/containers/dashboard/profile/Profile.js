@@ -1,16 +1,18 @@
 // module imports
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import FlexView from "react-flexview";
-import RecruiterProfileUpdateForm from "components/forms/RecruiterProfileUpdateForm.js";
-import CompanyProfileUpdateForm from "components/forms//CompanyProfileUpdateForm.js";
-import { toastr } from "react-redux-toastr";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import FlexView from 'react-flexview';
+import RecruiterProfileUpdateForm from 'components/forms/RecruiterProfileUpdateForm.js';
+import CompanyProfileUpdateForm from 'components/forms//CompanyProfileUpdateForm.js';
+import { toastr } from 'react-redux-toastr';
+
 // local imports
-import * as actions from "actions";
-import sysParams from "sys_params";
+import * as actions from 'actions';
+import sysParams from 'sys_params';
+import { cleanObject } from 'actions/utilities';
 
 const styles = {
-  alt: "Shen",
+  alt: 'Shen',
   sizes: {
     width: 400,
     height: 400
@@ -37,12 +39,13 @@ class Profile extends Component {
   };
 
   handleSubmit = async values => {
+    values = cleanObject(values);
     const res = await this.props.updateProfile(values);
 
     if (res.success) {
-      return toastr.success("Profile Updated");
+      return toastr.success('Profile Updated');
     } else {
-      toastr.error("Validation Failed", res.message);
+      toastr.error('Validation Failed', res.message);
     }
   };
 
