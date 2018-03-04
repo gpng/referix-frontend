@@ -23,8 +23,11 @@ class RecruiterProfileUpdateForm extends Component {
     };
     this.props.initialize(RequiredDetails);
   };
+
+//Take out force Update later 
+
   render() {
-    const { handleSubmit, submitting, pristine, reset } = this.props;
+    const { handleSubmit, submitting, pristine, reset,forceUpdate } = this.props;
     return (
       <form
         id="profile-management-form"
@@ -58,6 +61,7 @@ class RecruiterProfileUpdateForm extends Component {
 
         <Field
           fullWidth
+          required
           id="contact-number"
           name="contact_number"
           label="Contact Number"
@@ -68,8 +72,8 @@ class RecruiterProfileUpdateForm extends Component {
           variant="raised"
           color="primary"
           type="submit"
-          onClick={this.handleSubmit}
-          disabled={submitting}
+          onClick={()=>{ this.handleSubmit; this.forceUpdate }}
+          disabled={pristine || submitting}
         >
           Save
         </Button>

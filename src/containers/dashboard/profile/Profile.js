@@ -25,11 +25,16 @@ class Profile extends Component {
     this.state = {
       userDetails: {}
     };
+    this.forceUpdateHandler = this.forceUpdateHandler.bind(this);
   }
 
   componentWillMount = () => {
     this.getCurrentUser();
   };
+
+  forceUpdateHandler(){
+   this.forceUpdate();
+ };
 
   getCurrentUser = async () => {
     const res = await this.props.getCurrentUser();
@@ -47,6 +52,7 @@ class Profile extends Component {
     } else {
       toastr.error('Validation Failed', res.message);
     }
+
   };
 
   renderForm = () => {
@@ -55,6 +61,7 @@ class Profile extends Component {
         <RecruiterProfileUpdateForm
           userDetails={this.state.userDetails}
           onSubmit={this.handleSubmit}
+          forceUpdate={this.forceUpdateHandler}
         />
       );
     } else if (this.state.userDetails.role_id === sysParams.roles.company) {
@@ -62,6 +69,7 @@ class Profile extends Component {
         <CompanyProfileUpdateForm
           userDetails={this.state.userDetails}
           onSubmit={this.handleSubmit}
+          forceUpdate={this.forceUpdateHandler}
         />
       );
     }

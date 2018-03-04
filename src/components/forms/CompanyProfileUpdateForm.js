@@ -29,7 +29,7 @@ class CompanyProfileUpdateForm extends Component {
   };
 
   render() {
-    const { handleSubmit, submitting, pristine, reset } = this.props;
+    const { handleSubmit, submitting, pristine, reset,forceUpdate } = this.props;
     return (
       <form
         id="profile-management-form"
@@ -104,8 +104,8 @@ class CompanyProfileUpdateForm extends Component {
           variant="raised"
           color="primary"
           type="submit"
-          onClick={this.handleSubmit}
-          disabled={submitting}
+          onClick={()=>{ this.handleSubmit; this.forceUpdate }}
+          disabled={pristine || submitting}
         >
           Save
         </Button>
@@ -117,7 +117,7 @@ class CompanyProfileUpdateForm extends Component {
           // code in onclick will return to default
           disabled={pristine || submitting}
         >
-          Cancel
+          Reset
         </Button>
       </form>
     );
