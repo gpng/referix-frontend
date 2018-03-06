@@ -31,19 +31,6 @@ class RecruiterProfileUpdateForm extends Component {
     this.props.initialize(requiredDetails);
   };
 
-  componentWillReceiveProps = nextProps => {
-    if (!isEqual(nextProps.userDetails, this.props.userDetails)) {
-      if (nextProps.userDetails) {
-        var requiredDetails = {
-          first_name: nextProps.userDetails.first_name,
-          last_name: nextProps.userDetails.last_name,
-          contact_number: nextProps.userDetails.contact_number
-        };
-        this.props.initialize(requiredDetails);
-      }
-    }
-  };
-
   render() {
     const { handleSubmit, submitting, pristine, reset } = this.props;
     return (
