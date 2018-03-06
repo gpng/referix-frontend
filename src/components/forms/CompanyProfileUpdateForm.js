@@ -1,8 +1,8 @@
 // module imports
-import React, { Component } from 'react';
-import { Field, reduxForm } from 'redux-form';
-import { renderField, required } from 'components/forms/FormFieldValidation';
-import Button from 'material-ui/Button';
+import React, { Component } from "react";
+import { Field, reduxForm } from "redux-form";
+import { renderField, required } from "components/forms/FormFieldValidation";
+import Button from "material-ui/Button";
 
 // local imports
 
@@ -111,7 +111,7 @@ class CompanyProfileUpdateForm extends Component {
           color="primary"
           type="submit"
           onClick={this.handleSubmit}
-          disabled={pristine || submitting}
+          disabled={submitting}
         >
           Save
         </Button>
@@ -132,7 +132,7 @@ class CompanyProfileUpdateForm extends Component {
 
 CompanyProfileUpdateForm = reduxForm({
   // a unique name for the form
-  form: 'company_profile_update'
+  form: "company_profile_update"
 })(CompanyProfileUpdateForm);
 
 export default CompanyProfileUpdateForm;

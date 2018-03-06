@@ -1,8 +1,9 @@
 // module imports
-import React, { Component } from 'react';
-import { Field, reduxForm } from 'redux-form';
-import { renderField, required } from 'components/forms/FormFieldValidation';
-import Button from 'material-ui/Button';
+import React, { Component } from "react";
+import { Field, reduxForm } from "redux-form";
+import { renderField, required } from "components/forms/FormFieldValidation";
+import Button from "material-ui/Button";
+import isEqual from "lodash/isEqual";
 
 // local imports
 
@@ -28,6 +29,19 @@ class RecruiterProfileUpdateForm extends Component {
       contact_number: this.props.userDetails.contact_number
     };
     this.props.initialize(requiredDetails);
+  };
+
+  componentWillReceiveProps = nextProps => {
+    if (!isEqual(nextProps.userDetails, this.props.userDetails)) {
+      if (nextProps.userDetails) {
+        var requiredDetails = {
+          first_name: nextProps.userDetails.first_name,
+          last_name: nextProps.userDetails.last_name,
+          contact_number: nextProps.userDetails.contact_number
+        };
+        this.props.initialize(requiredDetails);
+      }
+    }
   };
 
   render() {
@@ -77,7 +91,7 @@ class RecruiterProfileUpdateForm extends Component {
           color="primary"
           type="submit"
           onClick={handleSubmit}
-          disabled={pristine || submitting}
+          disabled={submitting}
         >
           Save
         </Button>
@@ -99,7 +113,7 @@ class RecruiterProfileUpdateForm extends Component {
 
 RecruiterProfileUpdateForm = reduxForm({
   // a unique name for the form
-  form: 'recruiter_profile_update'
+  form: "recruiter_profile_update"
 })(RecruiterProfileUpdateForm);
 
 export default RecruiterProfileUpdateForm;
