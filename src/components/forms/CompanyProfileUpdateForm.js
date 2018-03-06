@@ -1,8 +1,8 @@
 // module imports
-import React, { Component } from "react";
-import { Field, reduxForm } from "redux-form";
-import { renderField, required } from "components/forms/FormFieldValidation";
-import Button from "material-ui/Button";
+import React, { Component } from 'react';
+import { Field, reduxForm } from 'redux-form';
+import { renderField, required } from 'components/forms/FormFieldValidation';
+import Button from 'material-ui/Button';
 
 // local imports
 
@@ -15,21 +15,27 @@ const styles = {
   }
 };
 
+/**
+ * Update company profile form
+ * @param {object} userDetails Details to be initialized into form
+ * @param {function} handleSubmit Submit form handler
+ */
 class CompanyProfileUpdateForm extends Component {
   componentDidMount = () => {
-    var RequiredDetails = {
+    var requiredDetails = {
       company_name: this.props.userDetails.company_name,
       company_size: this.props.userDetails.company_size,
       company_type: this.props.userDetails.company_type,
       company_website: this.props.userDetails.company_website,
       company_about: this.props.userDetails.company_about,
-      company_contact_number: this.props.userDetails.company_contact_number
+      company_contact_number: this.props.userDetails.company_contact_number,
+      company_location: this.props.userDetails.company_location
     };
-    this.props.initialize(RequiredDetails);
+    this.props.initialize(requiredDetails);
   };
 
   render() {
-    const { handleSubmit, submitting, pristine, reset,forceUpdate } = this.props;
+    const { handleSubmit, submitting, pristine, reset } = this.props;
     return (
       <form
         id="profile-management-form"
@@ -104,7 +110,7 @@ class CompanyProfileUpdateForm extends Component {
           variant="raised"
           color="primary"
           type="submit"
-          onClick={()=>{ this.handleSubmit; this.forceUpdate }}
+          onClick={this.handleSubmit}
           disabled={pristine || submitting}
         >
           Save
@@ -126,7 +132,7 @@ class CompanyProfileUpdateForm extends Component {
 
 CompanyProfileUpdateForm = reduxForm({
   // a unique name for the form
-  form: "company_profile_update"
+  form: 'company_profile_update'
 })(CompanyProfileUpdateForm);
 
 export default CompanyProfileUpdateForm;

@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import FlexView from 'react-flexview';
 import { withRouter } from 'react-router-dom';
+import isEqual from 'lodash/isEqual';
 
 // local imports
 import * as actions from 'actions';
@@ -13,6 +14,9 @@ import NavigationDrawer from 'components/dashboard/navigation/NavigationDrawer';
 
 // style imports
 
+/**
+ * Container that handles UI state for dashboard app bar and drawer
+ */
 class Navigation extends Component {
   constructor() {
     super();
@@ -33,14 +37,32 @@ class Navigation extends Component {
   componentWillMount = async () => {
     if (validateAccess(sysParams.roles.recruiter + sysParams.roles.company)) {
       if (!this.props.user) {
-        await this.props.getCurrentUser();
+        const res = await this.props.getCurrentUser();
+        if (res.success) {
+          this.handleSetName(
+            this.props.user.first_name || this.props.user.company_name
+          );
+        }
       }
-      this.setState({
-        firstName: this.props.user.first_name || this.props.user.company_name
-      });
     } else if (validateAccess(sysParams.roles.admin)) {
-      this.setState({ firstName: 'Admin' });
+      this.handleSetName('Admin');
     }
+  };
+
+  componentWillReceiveProps = nextProps => {
+    if (!isEqual(nextProps.user, this.props.user)) {
+      if (nextProps.user) {
+        this.handleSetName(
+          nextProps.user.first_name || nextProps.user.company_name
+        );
+      }
+    }
+  };
+
+  handleSetName = name => {
+    this.setState({
+      firstName: name
+    });
   };
 
   getNavItems = () => {

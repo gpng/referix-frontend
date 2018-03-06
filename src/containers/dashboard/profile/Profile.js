@@ -11,36 +11,37 @@ import * as actions from 'actions';
 import sysParams from 'sys_params';
 import { cleanObject } from 'actions/utilities';
 
-const styles = {
-  alt: 'Shen',
-  sizes: {
-    width: 400,
-    height: 400
-  }
-};
+// const styles = {
+//   alt: 'Shen',
+//   sizes: {
+//     width: 400,
+//     height: 400
+//   }
+// };
 
+/**
+ * Container handling dashboard profile UI state and updates
+ */
 class Profile extends Component {
   constructor() {
     super();
     this.state = {
       userDetails: {}
     };
-    this.forceUpdateHandler = this.forceUpdateHandler.bind(this);
   }
 
   componentWillMount = () => {
     this.getCurrentUser();
   };
 
-  forceUpdateHandler(){
-   this.forceUpdate();
- };
-
   getCurrentUser = async () => {
-    const res = await this.props.getCurrentUser();
-    if (res.success) {
-      this.setState({ userDetails: res.data[0] });
+    if (!this.props.user) {
+      const res = await this.props.getCurrentUser();
+      if (res.success) {
+        return this.setState({ userDetails: this.props.user });
+      }
     }
+    return this.setState({ userDetails: this.props.user });
   };
 
   handleSubmit = async values => {
@@ -48,11 +49,11 @@ class Profile extends Component {
     const res = await this.props.updateProfile(values);
 
     if (res.success) {
-      return toastr.success('Profile Updated');
+      toastr.success('Profile Updated');
+      return this.props.getCurrentUser();
     } else {
       toastr.error('Validation Failed', res.message);
     }
-
   };
 
   renderForm = () => {
@@ -61,7 +62,6 @@ class Profile extends Component {
         <RecruiterProfileUpdateForm
           userDetails={this.state.userDetails}
           onSubmit={this.handleSubmit}
-          forceUpdate={this.forceUpdateHandler}
         />
       );
     } else if (this.state.userDetails.role_id === sysParams.roles.company) {
@@ -69,7 +69,6 @@ class Profile extends Component {
         <CompanyProfileUpdateForm
           userDetails={this.state.userDetails}
           onSubmit={this.handleSubmit}
-          forceUpdate={this.forceUpdateHandler}
         />
       );
     }
@@ -85,7 +84,7 @@ class Profile extends Component {
 }
 
 function mapStateToProps({ auth }) {
-  return { authenticated: auth.authenticated };
+  return { user: auth.user };
 }
 
 export default connect(mapStateToProps, actions)(Profile);

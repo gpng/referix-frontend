@@ -82,7 +82,6 @@ export const login = formData => async dispatch => {
   if (isSuccess(res.data)) {
     dispatch({ type: AUTHENTICATED });
     const decoded = jwtDecode(res.data.access_token);
-    console.log(decoded);
     localStorage.setItem('access_token', res.data.access_token);
     localStorage.setItem('refresh_token', res.data.refresh_token);
     localStorage.setItem('user_id', decoded.user_id);
@@ -194,8 +193,11 @@ export const refreshToken = dispatch => {
   return freshTokenPromise();
 };
 
-/* To Update Users Password */
-
+/**
+ * Update user password
+ * PUT /user/:userId/password
+ * @param {*} formData
+ */
 export const updatePassword = formData => async dispatch => {
   let err, res;
   let config = {
@@ -224,6 +226,11 @@ export const updatePassword = formData => async dispatch => {
   }
 };
 
+/**
+ * Update user profile (company and recruiter only)
+ * PUT /user/:role/:userId/profile
+ * @param {*} formData
+ */
 export const updateProfile = formData => async dispatch => {
   let err, res;
   let config = {

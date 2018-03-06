@@ -1,8 +1,8 @@
 // module imports
-import React, { Component } from "react";
-import { Field, reduxForm } from "redux-form";
-import { renderField, required } from "components/forms/FormFieldValidation";
-import Button from "material-ui/Button";
+import React, { Component } from 'react';
+import { Field, reduxForm } from 'redux-form';
+import { renderField, required } from 'components/forms/FormFieldValidation';
+import Button from 'material-ui/Button';
 
 // local imports
 
@@ -14,20 +14,24 @@ const styles = {
     marginLeft: 8
   }
 };
+
+/**
+ * Update recruiter profile form
+ * @param {object} userDetails Details to be initialized into form
+ * @param {function} handleSubmit Submit form handler
+ */
 class RecruiterProfileUpdateForm extends Component {
   componentDidMount = () => {
-    var RequiredDetails = {
+    var requiredDetails = {
       first_name: this.props.userDetails.first_name,
       last_name: this.props.userDetails.last_name,
       contact_number: this.props.userDetails.contact_number
     };
-    this.props.initialize(RequiredDetails);
+    this.props.initialize(requiredDetails);
   };
 
-//Take out force Update later 
-
   render() {
-    const { handleSubmit, submitting, pristine, reset,forceUpdate } = this.props;
+    const { handleSubmit, submitting, pristine, reset } = this.props;
     return (
       <form
         id="profile-management-form"
@@ -72,7 +76,7 @@ class RecruiterProfileUpdateForm extends Component {
           variant="raised"
           color="primary"
           type="submit"
-          onClick={()=>{ this.handleSubmit; this.forceUpdate }}
+          onClick={handleSubmit}
           disabled={pristine || submitting}
         >
           Save
@@ -95,7 +99,7 @@ class RecruiterProfileUpdateForm extends Component {
 
 RecruiterProfileUpdateForm = reduxForm({
   // a unique name for the form
-  form: "recruiter_profile_update"
+  form: 'recruiter_profile_update'
 })(RecruiterProfileUpdateForm);
 
 export default RecruiterProfileUpdateForm;
