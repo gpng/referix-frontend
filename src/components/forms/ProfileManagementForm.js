@@ -4,7 +4,6 @@ import { Field, reduxForm } from "redux-form";
 import { renderField, required } from "components/forms/FormFieldValidation";
 import Button from "material-ui/Button";
 import TextField from "material-ui/TextField";
-
 // local imports
 
 // style imports
@@ -22,6 +21,7 @@ let ProfileManagementForm = props => {
       id="profile-management-form"
       className="form-horizontal"
       onSubmit={handleSubmit}
+
     >
       <TextField
         label="Email"

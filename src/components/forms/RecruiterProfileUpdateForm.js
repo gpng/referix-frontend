@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import { Field, reduxForm } from "redux-form";
 import { renderField, required } from "components/forms/FormFieldValidation";
 import Button from "material-ui/Button";
-import isEqual from "lodash/isEqual";
+
 
 // local imports
 
@@ -38,6 +38,7 @@ class RecruiterProfileUpdateForm extends Component {
         id="profile-management-form"
         className="form-horizontal"
         onSubmit={handleSubmit}
+            style={{width:"100%"}}
       >
         {/* <FormControl fullWidth disabled>
         <InputLabel>Email</InputLabel>
