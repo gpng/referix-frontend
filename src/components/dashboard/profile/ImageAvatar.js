@@ -6,8 +6,7 @@ import AddAPhotoIcon from "material-ui-icons/AddAPhoto";
 const styles = {
   profile_avatar: {
     width: 200,
-    height: 200,
-    backgroundColor:"blue"
+    height: 200
   }
 };
 
@@ -17,7 +16,7 @@ class ProfileAvatars extends Component {
     const { userFirstName, AvatarStyle, imageSource } = this.props;
   //    var AvatarName = userFirstName.toUpperCase();
     return (
-      <Avatar style={styles.profile_avatar} alt="kotala" src="/assets/images/SampleKoala.jpeg">
+      <Avatar style={styles.profile_avatar}>
       <AddAPhotoIcon/>
       </Avatar>
     );

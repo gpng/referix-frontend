@@ -17,7 +17,7 @@ import Dashboard from 'containers/dashboard/dashboard/Dashboard';
 import Profile from 'containers/dashboard/profile/Profile';
 import UserManagement from 'containers/dashboard/usermanagement/UserManagement';
 import JobManagement from 'containers/dashboard/jobmanagement/JobManagement';
-import ProfileManagement from 'containers/dashboard/profilemanagement/ProfileManagement';
+import ChangePassword from 'containers/dashboard/passwordchange/Passwordchange';
 import JobSearch from 'containers/dashboard/jobsearch/JobSearch';
 
 // style imports
@@ -77,8 +77,8 @@ class DashboardRoot extends Component {
             targetComponent={UserManagement}
           />
           <DefinedRoute
-            label="Profile Management"
-            targetComponent={ProfileManagement}
+            label="Change Password"
+            targetComponent={ChangePassword}
           />
           <DefinedRoute label="Profile" targetComponent={Profile} />
           <DefinedRoute label="Your Jobs" targetComponent={JobManagement} />

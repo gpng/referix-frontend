@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import { Field, reduxForm } from "redux-form";
 import { renderField, required } from "components/forms/FormFieldValidation";
 import Button from "material-ui/Button";
-
+import TextField from "material-ui/TextField";
 // local imports
 
 // style imports
@@ -41,16 +41,15 @@ class CompanyProfileUpdateForm extends Component {
         id="profile-management-form"
         className="form-horizontal"
         onSubmit={handleSubmit}
+        style={{width: "100%"}}
       >
-        <Field
-          required
-          fullWidth
-          id="company-name"
-          name="company_name"
-          label="Company Name"
-          component={renderField}
-          validate={[required]}
-        />
+
+      <TextField
+        label="Company Name"
+        defaultValue={this.props.userDetails.company_name}
+        fullWidth
+        disabled
+      />
 
         <Field
           fullWidth

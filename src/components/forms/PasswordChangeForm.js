@@ -14,7 +14,7 @@ const styles = {
   }
 };
 
-let ProfileManagementForm = props => {
+let PasswordChangeForm = props => {
   const { handleSubmit, submitting, userDetails } = props;
   return (
     <form
@@ -78,9 +78,9 @@ let ProfileManagementForm = props => {
   );
 };
 
-ProfileManagementForm = reduxForm({
+PasswordChangeForm = reduxForm({
   // a unique name for the form
-  form: "profile_management"
-})(ProfileManagementForm);
+  form: "password_change"
+})(PasswordChangeForm);
 
-export default ProfileManagementForm;
+export default PasswordChangeForm;

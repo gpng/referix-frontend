@@ -2,10 +2,10 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import FlexView from "react-flexview";
 import * as actions from "actions";
-import ProfileManagementForm from "components/forms/ProfileManagementForm";
+import PasswordChangeForm from "components/forms/PasswordChangeForm";
 import { toastr } from "react-redux-toastr";
 
-class ProfileManagement extends Component {
+class ChangePassword extends Component {
   constructor() {
     super();
     this.state = {
@@ -36,7 +36,7 @@ class ProfileManagement extends Component {
   renderForm = () => {
     if (this.state.userDetails) {
       return (
-        <ProfileManagementForm
+        <PasswordChangeForm
           userDetails={this.state.userDetails}
           onSubmit={this.handleSubmit}
         />
@@ -57,4 +57,4 @@ function mapStateToProps({ auth }) {
   return { authenticated: auth.authenticated };
 }
 
-export default connect(mapStateToProps, actions)(ProfileManagement);
+export default connect(mapStateToProps, actions)(ChangePassword);

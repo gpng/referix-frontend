@@ -43,10 +43,10 @@ export default {
       access: 4 // company only
     },
     {
-      label: 'Profile Management',
+      label: 'Change Password',
       icon: 'Edit',
-      path: '/dashboard/profilemanagement',
-      title: 'Profile Management',
+      path: '/dashboard/passwordchange',
+      title: 'Change Password',
       access: 6 //  recruiter + company
     }
   ],
