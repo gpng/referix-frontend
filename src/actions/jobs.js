@@ -101,9 +101,12 @@ export const getUserJobs = () => async dispatch => {
  * Get all active jobs
  * GET /jobs
  */
-export const getJobs = () => async dispatch => {
+export const getJobs = formData => async dispatch => {
   let err, res;
-  const url = '/job';
+
+  const searchText = formData.search_job_text;
+  const page = formData.page ? formData.page : 1;
+  const url = `/job?page=${page}&search=${searchText}`;
   const config = {
     headers: {
       token: localStorage.getItem('access_token')
@@ -117,7 +120,7 @@ export const getJobs = () => async dispatch => {
     };
   }
   if (isSuccess(res.data)) {
-    return { success: true, data: res.data.data };
+    return { success: true, data: res.data.data[0] };
   } else {
     return { success: false, message: res.data.error_description };
   }

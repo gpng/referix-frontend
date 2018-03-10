@@ -1,15 +1,15 @@
 // module imports
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import FlexView from "react-flexview";
-import RecruiterProfileUpdateForm from "components/forms/RecruiterProfileUpdateForm.js";
-import CompanyProfileUpdateForm from "components/forms//CompanyProfileUpdateForm.js";
-import { toastr } from "react-redux-toastr";
-import ProfileAvatars from "components/dashboard/profile/ImageAvatar.js";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import FlexView from 'react-flexview';
+import RecruiterProfileUpdateForm from 'components/forms/RecruiterProfileUpdateForm.js';
+import CompanyProfileUpdateForm from 'components/forms//CompanyProfileUpdateForm.js';
+import { toastr } from 'react-redux-toastr';
+import ProfileAvatars from 'components/dashboard/profile/ImageAvatar.js';
 // local imports
-import * as actions from "actions";
-import sysParams from "sys_params";
-import { cleanObject } from "actions/utilities";
+import * as actions from 'actions';
+import sysParams from 'sys_params';
+import { cleanObject } from 'actions/utilities';
 
 // const styles = {
 //   alt: 'Shen',
@@ -20,10 +20,10 @@ import { cleanObject } from "actions/utilities";
 // };
 const styles = {
   profile_root: {
-    width: "100%"
+    width: '100%'
   },
   profileform_root: {
-    width: "100%",
+    width: '100%',
     height: 200
   },
   avatar_root: {
@@ -44,7 +44,7 @@ class Profile extends Component {
     super();
     this.state = {
       userDetails: {},
-      imgSource: "assets/images/SampleKoala.jpg"
+      imgSource: 'assets/images/SampleKoala.jpg'
     };
   }
 
@@ -67,10 +67,10 @@ class Profile extends Component {
     const res = await this.props.updateProfile(values);
 
     if (res.success) {
-      toastr.success("Profile Updated");
+      toastr.success('Profile Updated');
       return this.props.getCurrentUser();
     } else {
-      toastr.error("Validation Failed", res.message);
+      toastr.error('Validation Failed', res.message);
     }
   };
 
@@ -92,13 +92,13 @@ class Profile extends Component {
     }
   };
 
- renderAvatar = () => {
+  renderAvatar = () => {
     return (
-    <ProfileAvatars
-      userFirstName={this.state.userDetails.first_name}
-      style={styles.imageavatar_size}
-      imageSource={this.state.imgSource}
-    />
+      <ProfileAvatars
+        userFirstName={this.state.userDetails.first_name}
+        style={styles.imageavatar_size}
+        imageSource={this.state.imgSource}
+      />
     );
   };
 
@@ -111,7 +111,7 @@ class Profile extends Component {
           hAlignContent="center"
           style={styles.avatar_root}
         >
-        {this.renderAvatar()}
+          {this.renderAvatar()}
         </FlexView>
         <FlexView basis="75%" style={styles.profileform_root}>
           {this.renderForm()}
