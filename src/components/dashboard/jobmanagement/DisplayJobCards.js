@@ -6,6 +6,7 @@ import Card, { CardContent, CardActions } from 'material-ui/Card';
 import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
 import Chip from 'material-ui/Chip';
+import Pagination from 'components/jobsearch/Pagination';
 
 // local imports
 
@@ -28,7 +29,7 @@ const styles = theme => ({
  * @param {object[]} jobs Array of job objects to be displayed
  */
 const DisplayJobCards = props => {
-  const { jobs, classes, onOpenDialog } = props;
+  const { jobs, classes, onOpenDialog, paginationProps } = props;
 
   const renderChips = compensation_benefits => {
     const list = compensation_benefits.split('|');
@@ -87,6 +88,8 @@ const DisplayJobCards = props => {
   return (
     <FlexView column shrink className={classes.root}>
       {renderJobCards()}
+      {paginationProps &&
+        paginationProps.total !== 0 && <Pagination {...paginationProps} />}
     </FlexView>
   );
 };
