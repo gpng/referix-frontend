@@ -39,6 +39,9 @@ const styles = theme => ({
   logo: {
     height: '64px',
     width: '128px'
+  },
+  activeItem: {
+    backgroundColor: '#f48fb1'
   }
 });
 
@@ -64,7 +67,15 @@ let NavigationDrawer = props => {
     for (var i = 0; i < routes.length; i++) {
       renderList.push(
         <Link to={routes[i].path} key={i} className={classes.drawerLink}>
-          <ListItem button onClick={onDrawerToggle}>
+          <ListItem
+            button
+            onClick={onDrawerToggle}
+            className={
+              window.location.pathname === routes[i].path
+                ? classes.activeItem
+                : null
+            }
+          >
             <ListItemIcon>
               <MaterialIcon icon={routes[i].icon} />
             </ListItemIcon>
