@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Avatar from 'material-ui/Avatar';
-import AddAPhotoIcon from 'material-ui-icons/AddAPhoto';
+// import AddAPhotoIcon from 'material-ui-icons/AddAPhoto';
 import background from 'assets/images/SampleKoala.jpg';
 
 const styles = {

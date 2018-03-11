@@ -6,7 +6,6 @@ import Drawer from 'material-ui/Drawer';
 import Hidden from 'material-ui/Hidden';
 import List, { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
 import { Link } from 'react-router-dom';
-import Typography from 'material-ui/Typography';
 import Divider from 'material-ui/Divider';
 
 // local imports
