@@ -1,6 +1,6 @@
-import React, { Component } from "react";
-import Avatar from "material-ui/Avatar";
-import AddAPhotoIcon from "material-ui-icons/AddAPhoto";
+import React, { Component } from 'react';
+import Avatar from 'material-ui/Avatar';
+import AddAPhotoIcon from 'material-ui-icons/AddAPhoto';
 import background from 'assets/images/SampleKoala.jpg';
 
 const styles = {
@@ -9,19 +9,13 @@ const styles = {
     height: 200,
     border: 0,
     objectFit: 'cover'
-
   }
 };
 
-class ProfileAvatars extends Component {
-
-  render() {
-    const { userFirstName, AvatarStyle, imageSource } = this.props;
+const ProfileAvatars = props => {
+  // const { userFirstName, AvatarStyle, imageSource } = props;
   //    var AvatarName = userFirstName.toUpperCase();
-    return (
-      <Avatar style={styles.profile_avatar} src={background} />
-    );
-  }
-}
+  return <Avatar style={styles.profile_avatar} src={background} />;
+};
 
 export default ProfileAvatars;
