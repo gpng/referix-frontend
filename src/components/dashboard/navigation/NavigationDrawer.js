@@ -41,7 +41,7 @@ const styles = theme => ({
     width: '128px'
   },
   activeItem: {
-    backgroundColor: '#f48fb1'
+    backgroundColor: '#ff4081'
   }
 });
 
