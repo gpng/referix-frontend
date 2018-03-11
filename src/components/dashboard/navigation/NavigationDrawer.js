@@ -12,6 +12,7 @@ import Divider from 'material-ui/Divider';
 // local imports
 import MaterialIcon from 'components/icons/MaterialIcon';
 import sysParams from 'sys_params';
+import logo from 'assets/images/logo_transparent.png';
 
 // style imports
 
@@ -35,6 +36,10 @@ const styles = theme => ({
   drawerLink: {
     textDecoration: 'none',
     color: 'black'
+  },
+  logo: {
+    height: '64px',
+    width: '128px'
   }
 });
 
@@ -80,9 +85,12 @@ let NavigationDrawer = props => {
         hAlignContent="center"
       >
         <Link to="/" className={classes.drawerLink}>
-          <Typography variant="title" color="inherit">
-            REFERIX
-          </Typography>
+          <FlexView>
+            <img src={logo} alt="referix-logo" className={classes.logo} />
+            {/* <Typography variant="title" color="inherit">
+              REFERIX
+            </Typography> */}
+          </FlexView>
         </Link>
       </FlexView>
       <Divider />
