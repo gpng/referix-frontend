@@ -52,6 +52,17 @@ class JobSearch extends Component {
     }
   };
 
+  handleApply = async job => {
+    const jobId = job.job_id;
+    const res = await this.props.applyJob(jobId);
+    if (res.success) {
+      // route to my jobs page?
+      toastr.success('Job Application', 'Reserved Job Successfully');
+    } else {
+      toastr.error('Job Application Error', res.message);
+    }
+  };
+
   /**
    * Fuzzy text search
    * Not being used as search done in API now, but keep in case
@@ -86,6 +97,7 @@ class JobSearch extends Component {
         <SearchJobForm onSubmit={this.handleSubmit} />
         <DisplayJobCards
           jobs={this.state.jobs}
+          onApply={this.handleApply}
           paginationProps={{
             total: this.state.pages,
             current: this.state.currentPage,

@@ -25,11 +25,14 @@ const styles = theme => ({
 });
 
 /**
- *
+ * Displays list of jobs using cards
  * @param {object[]} jobs Array of job objects to be displayed
+ * @param {function} onOpenDialog Function to be called to open edit job dialog
+ * @param {function} onApply Function to be called for recruiters to apply to job
+ * @param {object} paginationProps Props for pagination component
  */
 const DisplayJobCards = props => {
-  const { jobs, classes, onOpenDialog, paginationProps } = props;
+  const { jobs, classes, onOpenDialog, paginationProps, onApply } = props;
 
   const renderChips = compensation_benefits => {
     const list = compensation_benefits.split('|');
@@ -75,6 +78,17 @@ const DisplayJobCards = props => {
                   onClick={onOpenDialog.bind(this, job)}
                 >
                   Edit Details
+                </Button>
+              </CardActions>
+            )}
+            {onApply && (
+              <CardActions>
+                <Button
+                  size="small"
+                  color="secondary"
+                  onClick={onApply.bind(this, job)}
+                >
+                  Reserve Job
                 </Button>
               </CardActions>
             )}

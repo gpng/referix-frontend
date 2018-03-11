@@ -125,3 +125,33 @@ export const getJobs = formData => async dispatch => {
     return { success: false, message: res.data.error_description };
   }
 };
+
+/**
+ * Apply for a job
+ * POST /user/:userId/apply/:jobId
+ * @param {*} jobId
+ */
+export const applyJob = jobId => async dispatch => {
+  let err, res;
+  const userID = getUserFromAccessToken().user_id;
+  const url = `/user/${userID}/apply/${jobId}`;
+  const config = {
+    headers: {
+      token: localStorage.getItem('access_token')
+    }
+  };
+  [err, res] = await to(axios.post(url, {}, config));
+  if (err) {
+    return {
+      success: false,
+      message: err.response.data.error_description
+    };
+  }
+  if (isSuccess(res.data)) {
+    console.log(res.data.data[0]);
+    return { success: true, data: res.data.data[0] };
+  } else {
+    console.log(res.data.error.text);
+    return { success: false, message: res.data.error.text };
+  }
+};
