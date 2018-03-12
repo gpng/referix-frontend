@@ -23,7 +23,6 @@ const styles = {
 class CompanyProfileUpdateForm extends Component {
   componentDidMount = () => {
     var requiredDetails = {
-      company_name: this.props.userDetails.company_name,
       company_size: this.props.userDetails.company_size,
       company_type: this.props.userDetails.company_type,
       company_website: this.props.userDetails.company_website,
